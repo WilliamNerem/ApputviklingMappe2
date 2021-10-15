@@ -5,10 +5,10 @@
         android:title="Flerside valg"
         android:icon="@drawable/ic_baseline_dehaze_24"
         android:id="@+id/hamburger"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
         android:title="Innstillinger"
         android:icon="@drawable/ic_baseline_settings_24"
         android:id="@+id/settings"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 </menu>
