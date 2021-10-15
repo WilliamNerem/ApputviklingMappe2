@@ -1,3 +1,6 @@
 <resources>
     <string name="title">Restaurant app</string>
+    <string name="inputName">Navn:</string>
+    <string name="hintName">Skriv inn navn</string>
+    <string name="hintPhone">Skriv inn telefonnummer</string>
 </resources>
