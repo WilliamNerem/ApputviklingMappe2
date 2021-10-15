@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         tvButtonBestillBord = findViewById(R.id.button_bestill_bord);
         tvButtonRestauranter = findViewById(R.id.button_restauranter);
         tvButtonVenner = findViewById(R.id.button_venner);
+        buttons();
 
     }
 
