@@ -17,7 +17,7 @@
 
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/button_start"
+            android:id="@+id/button_bestill_bord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="150dp"
@@ -25,7 +25,7 @@
 
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/button_statistikk"
+            android:id="@+id/button_restauranter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -34,7 +34,7 @@
 
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/button_preferanser"
+            android:id="@+id/button_venner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

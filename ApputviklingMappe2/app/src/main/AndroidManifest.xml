@@ -18,6 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BestillBord"
+            android:label="Bestill bord">
+        </activity>
+        <activity
+            android:name=".Restauranter"
+            android:label="Registrer restauranter">
+        </activity>
+        <activity
+            android:name=".Venner"
+            android:label="Registrer venner">
+        </activity>
     </application>
 
 </manifest>

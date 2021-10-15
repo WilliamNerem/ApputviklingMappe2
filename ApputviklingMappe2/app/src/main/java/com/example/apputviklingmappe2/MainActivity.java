@@ -4,13 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button tvButtonBestillBord;
+    private Button tvButtonRestauranter;
+    private Button tvButtonVenner;
     private Toolbar toolbar;
 
     @Override
@@ -20,7 +28,41 @@ public class MainActivity extends AppCompatActivity {
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        tvButtonBestillBord = findViewById(R.id.button_bestill_bord);
+        tvButtonRestauranter = findViewById(R.id.button_restauranter);
+        tvButtonVenner = findViewById(R.id.button_venner);
+        buttons();
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    private void buttons(){
+        tvButtonBestillBord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BestillBord.class));
+            }
+
+        });
+
+        tvButtonRestauranter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Restauranter.class));
+            }
+        });
+        tvButtonVenner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Venner.class));
+            }
+        });
     }
 }
