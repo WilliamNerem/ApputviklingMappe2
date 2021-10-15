@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.Objects;
 
@@ -15,15 +16,11 @@ public class MainActivity extends AppCompatActivity {
     private Button tvButtonBestillBord;
     private Button tvButtonRestauranter;
     private Button tvButtonVenner;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar=findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         tvButtonBestillBord = findViewById(R.id.button_bestill_bord);
         tvButtonRestauranter = findViewById(R.id.button_restauranter);
         tvButtonVenner = findViewById(R.id.button_venner);
