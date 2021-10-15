@@ -7,6 +7,8 @@ import android.view.MenuInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Objects;
+
 public class Venner extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -15,14 +17,8 @@ public class Venner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.venner);
-        toolbar=findViewById(R.id.app_bar);
+        toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
     }
 }
