@@ -29,14 +29,14 @@ public class RestauranterList extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_view_restauranter);
 
-        Venn william = new Venn(0, "William", "12341234");
-        Venn martin = new Venn(1, "Martin", "43214321");
+        Restaurant mcDonalds = new Restaurant("McDonalds", "Oslogata1", "12341234", "Amerikansk" );
+        Restaurant mirabel = new Restaurant("Mirabel", "Tjuvholmen3", "43214321", "Italiensk");
 
-        ArrayList<Venn> vennList = new ArrayList<>();
-        vennList.add(william);
-        vennList.add(martin);
+        ArrayList<Restaurant> restaurantList = new ArrayList<>();
+        restaurantList.add(mcDonalds);
+        restaurantList.add(mirabel);
 
-        VennListAdapter adapter = new VennListAdapter(this, R.layout.list_item_restauranter, vennList);
+        RestaurantListAdapter adapter = new RestaurantListAdapter(this, R.layout.list_item_restauranter, restaurantList);
         listView.setAdapter(adapter);
 
 
