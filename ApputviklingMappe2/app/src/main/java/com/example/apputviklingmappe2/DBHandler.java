@@ -15,8 +15,14 @@ public class DBHandler extends SQLiteOpenHelper {
     static String KEY_ID = "_ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
-    static int DATABASE_VERSION = 1;
+    static int DATABASE_VERSION = 2;
     static String DATABASE_NAME = "Mappe_2_tabeller";
+    static String TABLE_RESTAURANTER = "Restauranter";
+    static String RES_KEY_ID = "_ID";
+    static String RES_KEY_NAME = "Navn";
+    static String RES_KEY_ADRESS = "Adresse";
+    static String RES_KEY_PH_NO = "Telefon";
+    static String RES_KEY_TYPE = "Type";
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -24,14 +30,18 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_VENNER + "(" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT," + KEY_PH_NO + " TEXT" + ")";
-        Log.d("SQL", CREATE_TABLE);
-        db.execSQL(CREATE_TABLE);
+        String CREATE_TABLEVenn = "CREATE TABLE " + TABLE_VENNER + "(" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT," + KEY_PH_NO + " TEXT" + ")";
+        String CREATE_TABLERestaurant = "CREATE TABLE " + TABLE_RESTAURANTER + "(" + RES_KEY_ID + " INTEGER PRIMARY KEY, " + RES_KEY_NAME + " TEXT," + RES_KEY_ADRESS + " TEXT," + RES_KEY_PH_NO + " TEXT," + RES_KEY_TYPE + " TEXT" + ")";
+        Log.d("SQL", CREATE_TABLEVenn);
+        Log.d("SQL", CREATE_TABLERestaurant);
+        db.execSQL(CREATE_TABLEVenn);
+        db.execSQL(CREATE_TABLERestaurant);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VENNER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESTAURANTER);
         onCreate(db);
     }
 
@@ -41,6 +51,17 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_NAME, venn.getNavn());
         values.put(KEY_PH_NO, venn.getTelefon());
         db.insert(TABLE_VENNER, null, values);
+        db.close();
+    }
+
+    public void addRestaurant(Restaurant restaurant) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(RES_KEY_NAME, restaurant.getNavn());
+        values.put(RES_KEY_ADRESS, restaurant.getAdresse());
+        values.put(RES_KEY_PH_NO, restaurant.getTelefon());
+        values.put(RES_KEY_TYPE, restaurant.getType());
+        db.insert(TABLE_RESTAURANTER, null, values);
         db.close();
     }
 

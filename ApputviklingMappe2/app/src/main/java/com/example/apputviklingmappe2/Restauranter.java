@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Restauranter extends AppCompatActivity {
-    Spinner spinner;
     EditText namein;
     EditText adressin;
     EditText phonein;
@@ -41,43 +40,37 @@ public class Restauranter extends AppCompatActivity {
 
     private void setSpinner() {
         String[] items = getResources().getStringArray(R.array.RestaurantTypes);
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, items){
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, items) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
+                if (position == 0) {
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
             }
         };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        typein.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        typein.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     tv.setTextColor(Color.GRAY);
                 }
             }
@@ -90,16 +83,19 @@ public class Restauranter extends AppCompatActivity {
     }
 
     public void addinDB(View v) {
-        Restaurant restaurant = new Restaurant(namein.getText().toString(), adressin.getText().toString(), phonein.getText().toString(), typein.toString());
+        Restaurant restaurant = new Restaurant(namein.getText().toString(), adressin.getText().toString(), phonein.getText().toString(), typein.getSelectedItem().toString());
+        System.out.println(typein.toString());
         db.addRestaurant(restaurant);
         Log.d("Legg inn: ", "legger til restauranter");
         namein.setText("");
         adressin.setText("");
         phonein.setText("");
-        Toast.makeText(getBaseContext(),"Venn lagt til", Toast.LENGTH_SHORT).show();
+        typein.setSelection(0);
+        Toast.makeText(getBaseContext(), "Restaurant lagt til", Toast.LENGTH_SHORT).show();
     }
+}
 
-    public void showallDB(View v) {
+    /*public void showallDB(View v) {
         String text = "";
         List<Venn> venner = db.findAllVenner();
 
@@ -125,3 +121,4 @@ public class Restauranter extends AppCompatActivity {
         db.updateVenn(venn);
     }
 }
+     */
