@@ -38,6 +38,10 @@
             android:name=".RestauranterList"
             android:label="List restauranter">
         </activity>
+        <activity
+            android:name=".Preferanser"
+            android:label="Velg preferanser">
+        </activity>
     </application>
 
 </manifest>
