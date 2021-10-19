@@ -1,5 +1,6 @@
 package com.example.apputviklingmappe2;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import java.util.Objects;
 public class Restauranter extends AppCompatActivity {
 
     private Spinner spinner;
+    private ImageButton toolbarList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,18 @@ public class Restauranter extends AppCompatActivity {
         this.setTitle("Funker dette?");
         setContentView(R.layout.restauranter);
         spinner = (Spinner) findViewById(R.id.restaurantType);
+        toolbarList = (ImageButton) findViewById(R.id.list);
+        toolbarButtons();
         setSpinner();
+    }
+
+    private void toolbarButtons(){
+        toolbarList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Restauranter.this, RestauranterList.class));
+            }
+        });
     }
 
     private void setSpinner() {
