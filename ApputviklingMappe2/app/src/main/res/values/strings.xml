@@ -12,4 +12,5 @@
         <item>Kinesisk</item>
         <item>Thai</item>
     </string-array>
+    <string name="hintTime">Skriv inn tidspunkt for SMS</string>
 </resources>
