@@ -5,6 +5,7 @@
     <string name="hintAddress">Skriv inn adresse</string>
     <string name="hintType">Velg type restaurant</string>
     <string-array name="RestaurantTypes">
+        <item>Velg type restaurant</item>
         <item>Amerikansk</item>
         <item>Asiatisk</item>
         <item>Italiensk</item>
