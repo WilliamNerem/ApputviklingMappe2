@@ -2,11 +2,13 @@ package com.example.apputviklingmappe2;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,19 +16,27 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Restauranter extends AppCompatActivity {
-
-    private Spinner spinner;
+    Spinner spinner;
+    EditText namein;
+    EditText adressin;
+    EditText phonein;
+    Spinner typein;
+    DBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle("Funker dette?");
         setContentView(R.layout.restauranter);
-        spinner = (Spinner) findViewById(R.id.restaurantType);
+        namein = (EditText) findViewById(R.id.restaurantName);
+        adressin = (EditText) findViewById(R.id.restaurantAddress);
+        phonein = (EditText) findViewById(R.id.restaurantPhone);
+        typein = (Spinner) findViewById(R.id.restaurantType);
         setSpinner();
+        db = new DBHandler(this);
     }
 
     private void setSpinner() {
@@ -77,5 +87,41 @@ public class Restauranter extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void addinDB(View v) {
+        Restaurant restaurant = new Restaurant(namein.getText().toString(), adressin.getText().toString(), phonein.getText().toString(), typein.toString());
+        db.addRestaurant(restaurant);
+        Log.d("Legg inn: ", "legger til restauranter");
+        namein.setText("");
+        adressin.setText("");
+        phonein.setText("");
+        Toast.makeText(getBaseContext(),"Venn lagt til", Toast.LENGTH_SHORT).show();
+    }
+
+    public void showallDB(View v) {
+        String text = "";
+        List<Venn> venner = db.findAllVenner();
+
+        for (Venn venn : venner) {
+            text = text + "Id: " + venn.get_ID() + ",Navn: " +
+                    venn.getNavn() + " ,Telefon: " +
+                    venn.getTelefon();
+            Log.d("Navn: ", text);
+        }
+
+    }
+
+    public void deleteinDB(View v) {
+        Long vennid = (Long.parseLong("1"));
+        db.deleteVenn(vennid);
+    }
+
+    public void updateinDB(View v) {
+        Venn venn = new Venn();
+        venn.setNavn(namein.getText().toString());
+        venn.setTelefon(phonein.getText().toString());
+        venn.set_ID(Long.parseLong("1"));
+        db.updateVenn(venn);
     }
 }
