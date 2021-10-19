@@ -1,6 +1,14 @@
 <resources>
     <string name="title">Restaurant app</string>
-    <string name="inputName">Navn:</string>
     <string name="hintName">Skriv inn navn</string>
     <string name="hintPhone">Skriv inn telefonnummer</string>
+    <string name="hintAddress">Skriv inn adresse</string>
+    <string name="hintType">Velg type restaurant</string>
+    <string-array name="RestaurantTypes">
+        <item>Amerikansk</item>
+        <item>Asiatisk</item>
+        <item>Italiensk</item>
+        <item>Kinesisk</item>
+        <item>Thai</item>
+    </string-array>
 </resources>
