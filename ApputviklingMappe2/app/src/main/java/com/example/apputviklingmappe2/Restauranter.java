@@ -18,6 +18,7 @@ public class Restauranter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTitle("Funker dette?");
         setContentView(R.layout.restauranter);
         spinner = (Spinner) findViewById(R.id.restaurantType);
         setSpinner();
