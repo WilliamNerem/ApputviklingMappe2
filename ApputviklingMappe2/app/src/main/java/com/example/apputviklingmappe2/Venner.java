@@ -42,6 +42,7 @@ public class Venner extends AppCompatActivity {
         });
     }
 
+
     public void addinDB(View v) {
         Venn venn = new Venn(namein.getText().toString(), phonein.getText().toString());
         db.addVenn(venn);
