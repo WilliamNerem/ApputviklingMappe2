@@ -35,7 +35,6 @@ public class Restauranter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restauranter);
-        spinner = (Spinner) findViewById(R.id.restaurantType);
         toolbarList = (ImageButton) findViewById(R.id.list);
         toolbarButtons();
         namein = (EditText) findViewById(R.id.restaurantName);

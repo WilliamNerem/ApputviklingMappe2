@@ -13,4 +13,5 @@
         <item>Thai</item>
     </string-array>
     <string name="hintTime">Skriv inn tidspunkt for SMS</string>
+    <string name="hintSMS">SMS av/på</string>
 </resources>
