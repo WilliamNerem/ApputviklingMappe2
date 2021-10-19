@@ -133,32 +133,25 @@
             android:layout_height="24dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/restaurantTypeWrapper"
+            app:layout_constraintEnd_toStartOf="@+id/restaurantType"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_restaurant_24" />
 
-        <RelativeLayout
-            android:id="@+id/restaurantTypeWrapper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corners"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/iconRestaurantType"
-            app:layout_constraintTop_toTopOf="parent">
-
             <Spinner
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:id="@+id/restaurantType"
                 android:layout_width="210dp"
                 android:layout_height="45dp"
                 android:hint="@string/hintPhone"
-                android:spinnerMode="dropdown" />
-
-        </RelativeLayout>
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/iconRestaurantType"
+                app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -169,7 +162,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:src="@drawable/ic_baseline_add_circle_24"
-        android:background="@color/dark_red"
+        android:background="@drawable/button_rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constRestaurantType" />
