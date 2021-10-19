@@ -93,32 +93,34 @@ public class Restauranter extends AppCompatActivity {
         typein.setSelection(0);
         Toast.makeText(getBaseContext(), "Restaurant lagt til", Toast.LENGTH_SHORT).show();
     }
-}
 
-    /*public void showallDB(View v) {
+    public void showallDB(View v) {
         String text = "";
-        List<Venn> venner = db.findAllVenner();
+        List<Restaurant> restauranter = db.findAllRestauranter();
 
-        for (Venn venn : venner) {
-            text = text + "Id: " + venn.get_ID() + ",Navn: " +
-                    venn.getNavn() + " ,Telefon: " +
-                    venn.getTelefon();
+        for (Restaurant restaurant : restauranter) {
+            text = text + "Id: " + restaurant.get_ID() + ",Adresse: " +
+                    restaurant.getAdresse() + " ,Navn: " +
+                    restaurant.getNavn() + " ,Telefon: " +
+                    restaurant.getTelefon() + " ,Type: " +
+                    restaurant.getType();
             Log.d("Navn: ", text);
         }
 
     }
 
     public void deleteinDB(View v) {
-        Long vennid = (Long.parseLong("1"));
-        db.deleteVenn(vennid);
+        Long restaurantid = (Long.parseLong("1"));
+        db.deleteRestaurant(restaurantid);
     }
 
     public void updateinDB(View v) {
-        Venn venn = new Venn();
-        venn.setNavn(namein.getText().toString());
-        venn.setTelefon(phonein.getText().toString());
-        venn.set_ID(Long.parseLong("1"));
-        db.updateVenn(venn);
+        Restaurant restaurant = new Restaurant();
+        restaurant.setNavn(namein.getText().toString());
+        restaurant.setAdresse(adressin.getText().toString());
+        restaurant.setTelefon(phonein.getText().toString());
+        restaurant.setType(typein.getSelectedItem().toString());
+        restaurant.set_ID(Long.parseLong("1"));
+        db.updateRestaurant(restaurant);
     }
 }
-     */
