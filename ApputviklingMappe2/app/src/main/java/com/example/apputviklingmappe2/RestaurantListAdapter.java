@@ -43,6 +43,8 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
+        View currentView = convertView;
+
         buttonEditRestaurant = (ImageButton) convertView.findViewById(R.id.buttonEditRestaurant);
         buttonDeleteRestaurant = (ImageButton) convertView.findViewById(R.id.buttonDeleteRestaurant);
 
@@ -62,11 +64,12 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         tvAddress.setText(address);
         tvPhone.setText(phone);
         tvType.setText(type);
-        AlertDialog created = buildAlertDialog(convertView, id, tvName, tvAddress, tvPhone, tvType);
+
 
         buttonEditRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog created = buildAlertDialog(currentView, id, tvName, tvAddress, tvPhone, tvType);
                 created.show();
             }
         });

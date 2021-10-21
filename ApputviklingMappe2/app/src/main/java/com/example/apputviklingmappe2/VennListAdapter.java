@@ -46,6 +46,8 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
+        View currentView = convertView;
+
         buttonEditVenn = (ImageButton) convertView.findViewById(R.id.buttonEdit);
         buttonDeleteVenn = (ImageButton) convertView.findViewById(R.id.buttonDelete);
 
@@ -62,11 +64,11 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
         tvId.setText(strId);
         tvName.setText(name);
         tvPhone.setText(phone);
-        AlertDialog created = buildAlertDialog(convertView, id, tvName, tvPhone);
 
         buttonEditVenn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlertDialog created = buildAlertDialog(currentView, id, tvName, tvPhone);
                 created.show();
             }
         });
