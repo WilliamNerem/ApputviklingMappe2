@@ -1,10 +1,13 @@
 package com.example.apputviklingmappe2;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,8 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
 
     private final Context mContext;
     int mResource;
+
+    private ImageButton buttonEditVenn;
 
     public VennListAdapter(Context context, int resource, ArrayList<Venn> objects) {
         super(context, resource, objects);
@@ -30,6 +35,8 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
+        buttonEditVenn = (ImageButton) convertView.findViewById(R.id.buttonEdit);
+
         long id = getItem(position).get_ID();
         String name = getItem(position).getNavn();
         String phone = getItem(position).getTelefon();
@@ -43,6 +50,14 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
         tvId.setText(strId);
         tvName.setText(name);
         tvPhone.setText(phone);
+
+        buttonEditVenn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
+                alertDialog.setTitle("Velg venner");
+            }
+        });
 
         return convertView;
     }

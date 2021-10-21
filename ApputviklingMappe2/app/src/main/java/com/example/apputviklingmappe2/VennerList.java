@@ -19,6 +19,7 @@ import java.util.Map;
 public class VennerList extends AppCompatActivity {
 
     private ImageButton toolbarList;
+    private ImageButton buttonEditVenn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class VennerList extends AppCompatActivity {
         setContentView(R.layout.venner_list);
 
         toolbarList = (ImageButton) findViewById(R.id.list);
+        buttonEditVenn = (ImageButton) findViewById(R.id.buttonEdit);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
 
@@ -48,6 +50,15 @@ public class VennerList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(VennerList.this, Venner.class));
+            }
+        });
+    }
+
+    private void editButton(){
+        buttonEditVenn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(VennerList.this, MainActivity.class));
             }
         });
     }

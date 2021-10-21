@@ -4,10 +4,16 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -30,6 +36,7 @@ public class BestillBord extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
     private Button timeButton;
     private Button friendsButton;
+    private Spinner restaurantSpinner;
     private DBHandler db;
 
     @Override
@@ -40,8 +47,10 @@ public class BestillBord extends AppCompatActivity {
         timeButton = findViewById(R.id.choseTime);
         timeButton.setText(getCurrentTime());
         friendsButton = findViewById(R.id.chooseFriend);
+        restaurantSpinner = (Spinner) findViewById(R.id.chooseRestaurant);
         friendsButtonOnclick();
         db = new DBHandler(this);
+        setSpinner();
     }
 
     private void friendsButtonOnclick() {
@@ -49,6 +58,56 @@ public class BestillBord extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 friendsAlertDialog();
+            }
+        });
+    }
+
+    private void setSpinner() {
+        List<Restaurant> restaurants;
+        restaurants = db.findAllRestauranter();
+        String[] items = new String[restaurants.size()+1];
+        items[0] = "Legg til restaurant";
+        for(int i=1 ; i <= restaurants.size();i++){
+            items[i] = restaurants.get(i-1).getNavn();
+        }
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, items) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY);
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        restaurantSpinner.setAdapter(adapter);
+
+        restaurantSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
