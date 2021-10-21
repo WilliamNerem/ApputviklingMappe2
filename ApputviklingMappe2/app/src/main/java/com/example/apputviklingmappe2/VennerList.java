@@ -47,6 +47,7 @@ public class VennerList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(VennerList.this, Venner.class));
+                finish();
             }
         });
     }

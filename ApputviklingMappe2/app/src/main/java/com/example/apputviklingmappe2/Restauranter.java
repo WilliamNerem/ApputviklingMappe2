@@ -50,6 +50,7 @@ public class Restauranter extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Restauranter.this, RestauranterList.class));
+                finish();
             }
         });
     }
