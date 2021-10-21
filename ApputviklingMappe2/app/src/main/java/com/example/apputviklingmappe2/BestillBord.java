@@ -44,6 +44,8 @@ public class BestillBord extends AppCompatActivity {
     ArrayList<Venn> chosenVenner= new ArrayList();
     static boolean[] checkedItems = new boolean[0];
     int bes_id_number;
+    int antallVennerValgt = 0;
+    String strAntallVennerValgt;
 
 
     @Override
@@ -56,6 +58,8 @@ public class BestillBord extends AppCompatActivity {
         friendsButton = findViewById(R.id.chooseFriend);
         restaurantSpinner = (Spinner) findViewById(R.id.chooseRestaurant);
         ivPreferanser = findViewById(R.id.settings);
+        strAntallVennerValgt = getString(R.string.hintAntallVenner, antallVennerValgt);
+        friendsButton.setText(strAntallVennerValgt);
         friendsButtonOnclick();
         db = new DBHandler(this);
         buttons();
@@ -154,6 +158,11 @@ public class BestillBord extends AppCompatActivity {
         });
     }
 
+    private void updateAntallVenner(){
+        strAntallVennerValgt = getString(R.string.hintAntallVenner, antallVennerValgt);
+        friendsButton.setText(strAntallVennerValgt);
+    }
+
     private void friendsAlertDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(BestillBord.this);
         alertDialog.setTitle("Velg venner");
@@ -176,9 +185,13 @@ public class BestillBord extends AppCompatActivity {
                 BestillBord.checkedItems[which] = isChecked;
                 if(isChecked) {
                  chosenVenner.add(venner.get(which));
+                    antallVennerValgt ++;
+                    updateAntallVenner();
                 }
                 if(!isChecked) {
                     chosenVenner.remove(venner.get(which));
+                    antallVennerValgt --;
+                    updateAntallVenner();
                 }
             }
         });

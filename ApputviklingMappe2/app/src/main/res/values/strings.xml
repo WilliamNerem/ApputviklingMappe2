@@ -4,6 +4,7 @@
     <string name="hintPhone">Skriv inn telefonnummer</string>
     <string name="hintAddress">Skriv inn adresse</string>
     <string name="hintType">Velg type restaurant</string>
+    <string name="hintAntallVenner">Antall venner valgt: %1$d</string>
     <string-array name="RestaurantTypes">
         <item>Velg type restaurant</item>
         <item>Amerikansk</item>
