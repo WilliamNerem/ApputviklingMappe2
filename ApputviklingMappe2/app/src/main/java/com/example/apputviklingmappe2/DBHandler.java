@@ -145,7 +145,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return changed;
     }
 
-    public Venn findVenn(int id) {
+    public Venn findVenn(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_VENNER, new String[]{
                         KEY_ID, KEY_NAME, KEY_PH_NO}, KEY_ID + "=?",
@@ -159,7 +159,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return venn;
     }
 
-    public Restaurant findRestaurant(int id) {
+    public Restaurant findRestaurant(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_RESTAURANTER, new String[]{
                         RES_KEY_ID, RES_KEY_NAME, RES_KEY_ADRESS, RES_KEY_PH_NO, RES_KEY_TYPE}, KEY_ID + "=?",

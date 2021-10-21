@@ -31,6 +31,7 @@ public class Venner extends AppCompatActivity {
         db = new DBHandler(this);
         toolbarList = (ImageButton) findViewById(R.id.list);
         toolbarButtons();
+        db = new DBHandler(this);
     }
 
     private void toolbarButtons(){

@@ -19,6 +19,7 @@ import java.util.Map;
 public class RestauranterList extends AppCompatActivity {
 
     private ImageButton toolbarList;
+    DBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +30,8 @@ public class RestauranterList extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_view_restauranter);
 
-        Restaurant mcDonalds = new Restaurant("McDonalds", "Oslogata1", "12341234", "Amerikansk" );
-        Restaurant mirabel = new Restaurant("Mirabel", "Tjuvholmen3", "43214321", "Italiensk");
-
-        ArrayList<Restaurant> restaurantList = new ArrayList<>();
-        restaurantList.add(mcDonalds);
-        restaurantList.add(mirabel);
+        db = new DBHandler(this);
+        List<Restaurant> restaurantList = db.findAllRestauranter();
 
         RestaurantListAdapter adapter = new RestaurantListAdapter(this, R.layout.list_item_restauranter, restaurantList);
         listView.setAdapter(adapter);

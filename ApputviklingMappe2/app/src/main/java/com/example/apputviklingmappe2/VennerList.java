@@ -20,6 +20,7 @@ public class VennerList extends AppCompatActivity {
 
     private ImageButton toolbarList;
     private ImageButton buttonEditVenn;
+    DBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +32,8 @@ public class VennerList extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_view);
 
-        Venn william = new Venn(0, "William", "12341234");
-        Venn martin = new Venn(1, "Martin", "43214321");
-
-        ArrayList<Venn> vennList = new ArrayList<>();
-        vennList.add(william);
-        vennList.add(martin);
+        db = new DBHandler(this);
+        List<Venn> vennList = db.findAllVenner();
 
         VennListAdapter adapter = new VennListAdapter(this, R.layout.list_item, vennList);
         listView.setAdapter(adapter);
@@ -63,3 +60,4 @@ public class VennerList extends AppCompatActivity {
         });
     }
 }
+
