@@ -20,7 +20,7 @@
 
         <androidx.appcompat.widget.SwitchCompat
         android:layout_width="96dp"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:id="@+id/settingsSwitch"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,15 +70,15 @@
 
         <Button
             android:id="@+id/time"
-            android:layout_width="210dp"
-            android:layout_height="45dp"
             style="?android:spinnerStyle"
+            android:layout_width="157dp"
+            android:layout_height="38dp"
             android:onClick="openTimePicker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/iconTime"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

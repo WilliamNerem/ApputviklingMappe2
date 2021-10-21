@@ -168,6 +168,12 @@ public class BestillBord extends AppCompatActivity {
                 }
             }
         });
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
         alertDialog.show();
     }
 
