@@ -29,7 +29,15 @@ public class Preferanser extends AppCompatActivity {
         toolbarList = (ImageButton) findViewById(R.id.list);
         timeButton = findViewById(R.id.time);
         timeButton.setText(getCurrentTime());
-        timeButton.setEnabled(settingsSwitch.isChecked());
+
+        if (settingsSwitch.isChecked()) {
+            timeButton.setEnabled(true);
+            timeButton.setText(getCurrentTime());
+        }
+        else {
+            timeButton.setEnabled(false);
+            timeButton.setText("--:--");
+        }
 
         // toolbarButtons();
         buttons();
@@ -53,10 +61,12 @@ public class Preferanser extends AppCompatActivity {
                 if (settingsSwitch.isChecked()) {
                     Toast.makeText(getBaseContext(), "SMS varsling skrudd på", Toast.LENGTH_SHORT).show();
                     timeButton.setEnabled(true);
+                    timeButton.setText(getCurrentTime());
                 }
                 else {
                     Toast.makeText(getBaseContext(), "SMS varsling skrudd av", Toast.LENGTH_SHORT).show();
                     timeButton.setEnabled(false);
+                    timeButton.setText("--:--");
                 }
             }
         });
