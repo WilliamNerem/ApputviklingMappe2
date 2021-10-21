@@ -29,6 +29,8 @@ public class Preferanser extends AppCompatActivity {
         toolbarList = (ImageButton) findViewById(R.id.list);
         timeButton = findViewById(R.id.time);
         timeButton.setText(getCurrentTime());
+        timeButton.setEnabled(settingsSwitch.isChecked());
+
         // toolbarButtons();
         buttons();
         initTimePicker();
@@ -50,9 +52,11 @@ public class Preferanser extends AppCompatActivity {
             public void onClick(View view) {
                 if (settingsSwitch.isChecked()) {
                     Toast.makeText(getBaseContext(), "SMS varsling skrudd på", Toast.LENGTH_SHORT).show();
+                    timeButton.setEnabled(true);
                 }
                 else {
                     Toast.makeText(getBaseContext(), "SMS varsling skrudd av", Toast.LENGTH_SHORT).show();
+                    timeButton.setEnabled(false);
                 }
             }
         });
