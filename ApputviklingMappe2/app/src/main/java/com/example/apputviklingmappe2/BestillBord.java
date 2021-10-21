@@ -173,7 +173,7 @@ public class BestillBord extends AppCompatActivity {
 
     private String getCurrentTime() {
         Calendar cal = Calendar.getInstance();
-        int hour = cal.get(Calendar.HOUR);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
         int minute = cal.get(Calendar.MINUTE);
         return makeTimeString(hour, minute);
     }
@@ -188,7 +188,7 @@ public class BestillBord extends AppCompatActivity {
         };
 
         Calendar cal = Calendar.getInstance();
-        int hour = cal.get(Calendar.HOUR);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
         int minute = cal.get(Calendar.MINUTE);
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
@@ -210,8 +210,5 @@ public class BestillBord extends AppCompatActivity {
 
     public void openTimePicker(View view) {
         timePickerDialog.show();
-    }
-
-    public void openFriendCheckList(View view) {
     }
 }

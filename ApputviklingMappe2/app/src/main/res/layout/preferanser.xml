@@ -68,17 +68,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_access_time_24" />
 
-        <EditText
+        <Button
             android:id="@+id/time"
-            android:layout_width="233dp"
-            android:layout_height="55dp"
-            android:ems="10"
-            android:hint="@string/hintTime"
+            android:layout_width="210dp"
+            android:layout_height="45dp"
+            style="?android:spinnerStyle"
+            android:onClick="openTimePicker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/iconTime"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
