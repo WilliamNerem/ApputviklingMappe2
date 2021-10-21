@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,12 +31,14 @@ public class Restauranter extends AppCompatActivity {
 
     private Spinner spinner;
     private ImageButton toolbarList;
+    private ImageView ivPreferanser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restauranter);
         toolbarList = (ImageButton) findViewById(R.id.list);
+        ivPreferanser = findViewById(R.id.settings);
         toolbarButtons();
         namein = (EditText) findViewById(R.id.restaurantName);
         adressin = (EditText) findViewById(R.id.restaurantAddress);
@@ -51,6 +54,13 @@ public class Restauranter extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(Restauranter.this, RestauranterList.class));
                 finish();
+            }
+        });
+
+        ivPreferanser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Restauranter.this, Preferanser.class));
             }
         });
     }

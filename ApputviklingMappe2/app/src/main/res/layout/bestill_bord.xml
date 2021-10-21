@@ -69,7 +69,7 @@
             app:srcCompat="@drawable/ic_baseline_person_24" />
 
         <Button
-            style="?android:spinnerStyle"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:id="@+id/chooseFriend"
             android:layout_width="210dp"
             android:layout_height="45dp"
@@ -108,7 +108,7 @@
             android:id="@+id/choseTime"
             android:layout_width="210dp"
             android:layout_height="45dp"
-            style="?android:spinnerStyle"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:onClick="openTimePicker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

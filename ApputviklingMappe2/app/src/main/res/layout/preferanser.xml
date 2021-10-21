@@ -70,7 +70,7 @@
 
         <Button
             android:id="@+id/time"
-            style="?android:spinnerStyle"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_width="157dp"
             android:layout_height="38dp"
             android:onClick="openTimePicker"

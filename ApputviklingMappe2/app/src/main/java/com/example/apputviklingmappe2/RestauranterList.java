@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -19,6 +20,7 @@ import java.util.Map;
 public class RestauranterList extends AppCompatActivity {
 
     private ImageButton toolbarList;
+    private ImageView ivPreferanser;
     DBHandler db;
 
     @Override
@@ -27,6 +29,7 @@ public class RestauranterList extends AppCompatActivity {
         setContentView(R.layout.restauranter_list);
 
         toolbarList = (ImageButton) findViewById(R.id.list);
+        ivPreferanser = findViewById(R.id.settings);
 
         ListView listView = (ListView) findViewById(R.id.list_view_restauranter);
 
@@ -46,6 +49,13 @@ public class RestauranterList extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(RestauranterList.this, Restauranter.class));
                 finish();
+            }
+        });
+
+        ivPreferanser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RestauranterList.this, Preferanser.class));
             }
         });
     }

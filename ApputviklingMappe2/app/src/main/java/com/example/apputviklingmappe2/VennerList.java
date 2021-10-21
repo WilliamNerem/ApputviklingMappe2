@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -20,6 +21,7 @@ public class VennerList extends AppCompatActivity {
 
     private ImageButton toolbarList;
     private ImageButton buttonEditVenn;
+    private ImageView ivPreferanser;
     DBHandler db;
 
     @Override
@@ -29,6 +31,7 @@ public class VennerList extends AppCompatActivity {
 
         toolbarList = (ImageButton) findViewById(R.id.list);
         buttonEditVenn = (ImageButton) findViewById(R.id.buttonEdit);
+        ivPreferanser = findViewById(R.id.settings);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
 
@@ -48,6 +51,13 @@ public class VennerList extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(VennerList.this, Venner.class));
                 finish();
+            }
+        });
+
+        ivPreferanser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(VennerList.this, Preferanser.class));
             }
         });
     }

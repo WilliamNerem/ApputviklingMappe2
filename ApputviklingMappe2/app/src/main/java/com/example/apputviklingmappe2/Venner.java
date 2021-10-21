@@ -21,6 +21,7 @@ public class Venner extends AppCompatActivity {
     EditText phonein;
     DBHandler db;
     private ImageButton toolbarList;
+    private ImageView ivPreferanser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class Venner extends AppCompatActivity {
         phonein = (EditText) findViewById(R.id.phone);
         db = new DBHandler(this);
         toolbarList = (ImageButton) findViewById(R.id.list);
+        ivPreferanser = findViewById(R.id.settings);
         toolbarButtons();
         db = new DBHandler(this);
     }
@@ -40,6 +42,13 @@ public class Venner extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(Venner.this, VennerList.class));
                 finish();
+            }
+        });
+
+        ivPreferanser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Venner.this, Preferanser.class));
             }
         });
     }

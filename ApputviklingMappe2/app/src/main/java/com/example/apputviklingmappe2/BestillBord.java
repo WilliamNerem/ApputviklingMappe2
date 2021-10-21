@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -37,6 +39,7 @@ public class BestillBord extends AppCompatActivity {
     private Button timeButton;
     private Button friendsButton;
     private Spinner restaurantSpinner;
+    private ImageView ivPreferanser;
     private DBHandler db;
     ArrayList<Venn> chosenVenner= new ArrayList();
     static boolean[] checkedItems = new boolean[0];
@@ -52,9 +55,20 @@ public class BestillBord extends AppCompatActivity {
         timeButton.setText(getCurrentTime());
         friendsButton = findViewById(R.id.chooseFriend);
         restaurantSpinner = (Spinner) findViewById(R.id.chooseRestaurant);
+        ivPreferanser = findViewById(R.id.settings);
         friendsButtonOnclick();
         db = new DBHandler(this);
+        buttons();
         setSpinner();
+    }
+
+    private void buttons(){
+        ivPreferanser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BestillBord.this, Preferanser.class));
+            }
+        });
     }
 
     public void addinDB(View v) {
