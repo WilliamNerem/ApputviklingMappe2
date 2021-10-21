@@ -100,7 +100,6 @@ public class Restauranter extends AppCompatActivity {
 
     public void addinDB(View v) {
         Restaurant restaurant = new Restaurant(namein.getText().toString(), adressin.getText().toString(), phonein.getText().toString(), typein.getSelectedItem().toString());
-        System.out.println(typein.toString());
         db.addRestaurant(restaurant);
         Log.d("Legg inn: ", "legger til restauranter");
         namein.setText("");

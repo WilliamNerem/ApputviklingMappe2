@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -39,6 +40,7 @@ public class BestillBord extends AppCompatActivity {
     private Spinner restaurantSpinner;
     private DBHandler db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,18 @@ public class BestillBord extends AppCompatActivity {
         friendsButtonOnclick();
         db = new DBHandler(this);
         setSpinner();
+    }
+
+    public void addinDB(Venn venn) {
+        Bestilling bestilling = new Bestilling(new Restaurant("test","hoho","hehe", "beste"),venn, timeButton.getText().toString());
+        db.addBestilling(bestilling);
+        Log.d("Legg inn: ", "legger til bestillinger");
+        Toast.makeText(getBaseContext(),"Bestilling lagt til", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteinDB(View v) {
+        Long restaurantid = (Long.parseLong("1"));
+        db.deleteBestilling(restaurantid);
     }
 
     private void friendsButtonOnclick() {
@@ -127,7 +141,7 @@ public class BestillBord extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if(isChecked) {
-                    Toast.makeText(BestillBord.this, "Valgt venn : " + which, Toast.LENGTH_LONG).show();
+                 addinDB(venner.get(which));
                 }
             }
         });

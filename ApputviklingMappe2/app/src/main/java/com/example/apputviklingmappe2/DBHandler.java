@@ -15,7 +15,7 @@ public class DBHandler extends SQLiteOpenHelper {
     static String KEY_ID = "_ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
-    static int DATABASE_VERSION = 2;
+    static int DATABASE_VERSION = 3;
     static String DATABASE_NAME = "Mappe_2_tabeller";
     static String TABLE_RESTAURANTER = "Restauranter";
     static String RES_KEY_ID = "_ID";
@@ -23,6 +23,12 @@ public class DBHandler extends SQLiteOpenHelper {
     static String RES_KEY_ADRESS = "Adresse";
     static String RES_KEY_PH_NO = "Telefon";
     static String RES_KEY_TYPE = "Type";
+    static String TABLE_BESTILLINGER = "Bestillinger";
+    static String BES_KEY_ID = "_ID";
+    static String BES_VENNER = "Venner";
+    static String BES_RES = "Restaurant";
+    static String BES_TIME = "Tidspunkt";
+
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,16 +38,20 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLEVenn = "CREATE TABLE " + TABLE_VENNER + "(" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT," + KEY_PH_NO + " TEXT" + ")";
         String CREATE_TABLERestaurant = "CREATE TABLE " + TABLE_RESTAURANTER + "(" + RES_KEY_ID + " INTEGER PRIMARY KEY, " + RES_KEY_NAME + " TEXT," + RES_KEY_ADRESS + " TEXT," + RES_KEY_PH_NO + " TEXT," + RES_KEY_TYPE + " TEXT" + ")";
+        String CREATE_TABLEBestillinger = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BES_KEY_ID + " INTEGER, " + BES_RES + " TEXT," + BES_VENNER + " TEXT ," + BES_TIME + " TEXT, " + "PRIMARY KEY ("+BES_KEY_ID+", "+KEY_ID+"));";
         Log.d("SQL", CREATE_TABLEVenn);
         Log.d("SQL", CREATE_TABLERestaurant);
+        Log.d("SQL", CREATE_TABLEBestillinger);
         db.execSQL(CREATE_TABLEVenn);
         db.execSQL(CREATE_TABLERestaurant);
+        db.execSQL(CREATE_TABLEBestillinger);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VENNER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESTAURANTER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BESTILLINGER);
         onCreate(db);
     }
 
@@ -62,6 +72,16 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(RES_KEY_PH_NO, restaurant.getTelefon());
         values.put(RES_KEY_TYPE, restaurant.getType());
         db.insert(TABLE_RESTAURANTER, null, values);
+        db.close();
+    }
+
+    public void addBestilling(Bestilling bestilling) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(BES_RES, bestilling.getRestaurant().getNavn());
+        values.put(BES_VENNER, bestilling.getVenn().get_ID());
+        values.put(BES_TIME, bestilling.getTime());
+        db.insert(TABLE_BESTILLINGER, null, values);
         db.close();
     }
 
