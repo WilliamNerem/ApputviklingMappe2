@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,12 +33,15 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 public class BestillBord extends AppCompatActivity {
-
     private TimePickerDialog timePickerDialog;
     private Button timeButton;
     private Button friendsButton;
     private Spinner restaurantSpinner;
     private DBHandler db;
+    ArrayList<Venn> chosenVenner= new ArrayList();
+    static boolean[] checkedItems = new boolean[0];
+    int bes_id_number;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,30 @@ public class BestillBord extends AppCompatActivity {
         friendsButtonOnclick();
         db = new DBHandler(this);
         setSpinner();
+    }
+
+    public void addinDB(View v) {
+        String enRestaurant = restaurantSpinner.getSelectedItem().toString();
+        Restaurant valgt = null;
+        for(Restaurant res : db.findAllRestauranter()) {
+            if(enRestaurant.equals(res.navn)) {
+                valgt = res;
+            }
+        }
+        bes_id_number =  db.findNumberofuniqueBestillinger() +1;
+        for(Venn enVenn : chosenVenner) {
+            Bestilling enBestilling = new Bestilling(bes_id_number, valgt, enVenn, timeButton.getText().toString());
+            db.addBestilling(enBestilling);
+        }
+        bes_id_number++;
+        chosenVenner.clear();
+        Log.d("Legg inn: ", "legger til bestillinger");
+        Toast.makeText(getBaseContext(),"Bestilling lagt til", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteinDB(Venn venn) {
+        Long bes_id = (Long.parseLong("1"));
+        db.deleteBestilling(bes_id, venn.get_ID());
     }
 
     private void friendsButtonOnclick() {
@@ -119,21 +147,28 @@ public class BestillBord extends AppCompatActivity {
         venner = db.findAllVenner();
         String[] items = new String[venner.size()];
         boolean[] checkedItems = new boolean[venner.size()];
+        if(BestillBord.checkedItems.length > 0) {
+            checkedItems = BestillBord.checkedItems;
+        }
+        else {
+            BestillBord.checkedItems = checkedItems;
+        }
         for(int i=0 ; i< venner.size();i++){
             items[i] =venner.get(i).getNavn();
-            checkedItems[i] = false;
         }
         alertDialog.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                BestillBord.checkedItems[which] = isChecked;
                 if(isChecked) {
-                    Toast.makeText(BestillBord.this, "Valgt venn : " + which, Toast.LENGTH_LONG).show();
+                 chosenVenner.add(venner.get(which));
+                }
+                if(!isChecked) {
+                    chosenVenner.remove(venner.get(which));
                 }
             }
         });
-        AlertDialog alert = alertDialog.create();
-        alert.setCanceledOnTouchOutside(false);
-        alert.show();
+        alertDialog.show();
     }
 
     private String getCurrentTime() {
