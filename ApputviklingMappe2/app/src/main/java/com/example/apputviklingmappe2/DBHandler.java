@@ -15,7 +15,7 @@ public class DBHandler extends SQLiteOpenHelper {
     static String KEY_ID = "_ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
-    static int DATABASE_VERSION = 3;
+    static int DATABASE_VERSION = 8;
     static String DATABASE_NAME = "Mappe_2_tabeller";
     static String TABLE_RESTAURANTER = "Restauranter";
     static String RES_KEY_ID = "_ID";
@@ -25,7 +25,7 @@ public class DBHandler extends SQLiteOpenHelper {
     static String RES_KEY_TYPE = "Type";
     static String TABLE_BESTILLINGER = "Bestillinger";
     static String BES_KEY_ID = "_ID";
-    static String BES_VENNER = "Venner";
+    static String BES_VENN = "Venner";
     static String BES_RES = "Restaurant";
     static String BES_TIME = "Tidspunkt";
 
@@ -38,7 +38,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLEVenn = "CREATE TABLE " + TABLE_VENNER + "(" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT," + KEY_PH_NO + " TEXT" + ")";
         String CREATE_TABLERestaurant = "CREATE TABLE " + TABLE_RESTAURANTER + "(" + RES_KEY_ID + " INTEGER PRIMARY KEY, " + RES_KEY_NAME + " TEXT," + RES_KEY_ADRESS + " TEXT," + RES_KEY_PH_NO + " TEXT," + RES_KEY_TYPE + " TEXT" + ")";
-        String CREATE_TABLEBestillinger = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BES_KEY_ID + " INTEGER, " + BES_RES + " TEXT," + BES_VENNER + " TEXT ," + BES_TIME + " TEXT, " + "PRIMARY KEY ("+BES_KEY_ID+", "+KEY_ID+"));";
+        String CREATE_TABLEBestillinger = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BES_KEY_ID + " INTEGER  , " + BES_RES + " TEXT," + BES_VENN + " INTEGER ," + BES_TIME + " TEXT, " + "PRIMARY KEY ("+BES_KEY_ID+", "+BES_VENN+"));";
         Log.d("SQL", CREATE_TABLEVenn);
         Log.d("SQL", CREATE_TABLERestaurant);
         Log.d("SQL", CREATE_TABLEBestillinger);
@@ -78,13 +78,24 @@ public class DBHandler extends SQLiteOpenHelper {
     public void addBestilling(Bestilling bestilling) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(BES_KEY_ID, bestilling.get_ID());
         values.put(BES_RES, bestilling.getRestaurant().getNavn());
-        values.put(BES_VENNER, bestilling.getVenn().get_ID());
+        values.put(BES_VENN, bestilling.getVenn().get_ID());
         values.put(BES_TIME, bestilling.getTime());
         db.insert(TABLE_BESTILLINGER, null, values);
         db.close();
     }
 
+    public int findNumberofuniqueBestillinger() {
+        String sql = "SELECT MAX(_ID) as BES_KEY_ID FROM Bestillinger";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        int maxid = cursor.getInt(cursor.getColumnIndexOrThrow("BES_KEY_ID"));
+        cursor.close();
+        db.close();
+        return maxid;
+    }
     public List<Venn> findAllVenner() {
         List<Venn> vennList = new ArrayList<Venn>();
         String selectQuery = "SELECT * FROM " + TABLE_VENNER;
@@ -138,6 +149,14 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_RESTAURANTER, RES_KEY_ID + " =? ",
 
                 new String[]{Long.toString(in_id)});
+        db.close();
+    }
+
+    public void deleteBestilling(Long bes_id, Long venn_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_BESTILLINGER, BES_KEY_ID + " =? AND " + KEY_ID + "=?",
+
+                new String[]{Long.toString(bes_id), Long.toString(venn_id)});
         db.close();
     }
 
