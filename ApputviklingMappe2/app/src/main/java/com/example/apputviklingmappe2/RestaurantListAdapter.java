@@ -56,11 +56,14 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         String type = getItem(position).getType();
         Restaurant restaurant = new Restaurant(name, address, phone, type);
 
+        TextView tvId = (TextView) convertView.findViewById(R.id.itemRestaurant);
         TextView tvName = (TextView) convertView.findViewById(R.id.itemRestaurantName);
         TextView tvAddress = (TextView) convertView.findViewById(R.id.itemRestaurantAddress);
         TextView tvPhone = (TextView) convertView.findViewById(R.id.itemRestaurantPhone);
         TextView tvType = (TextView) convertView.findViewById(R.id.itemRestaurantType);
 
+        String strId = String.valueOf(id);
+        tvId.setText(strId);
         tvName.setText(name);
         tvAddress.setText(address);
         tvPhone.setText(phone);

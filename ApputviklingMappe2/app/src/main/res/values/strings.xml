@@ -6,6 +6,8 @@
     <string name="titleRestauranterList">Alle restauranter</string>
     <string name="titleBestillBord">Bestill bord</string>
     <string name="titlePreferanser">Preferanser</string>
+    <string name="restauranter">Restauranter</string>
+    <string name="venner">Venner</string>
     <string name="hintName">Skriv inn navn</string>
     <string name="hintPhone">Skriv inn telefonnummer</string>
     <string name="hintAddress">Skriv inn adresse</string>
