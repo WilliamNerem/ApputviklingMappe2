@@ -20,7 +20,7 @@ public class RestaurantService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(getApplicationContext(), "I MinService", Toast.LENGTH_SHORT).show();
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Intent i = new Intent(this, RestaurantNotification.class);
+        Intent i = new Intent(this, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, i, 0);
         Notification notification = new NotificationCompat.Builder(this,"22")
                 .setContentTitle("Restaurant notifikasjon")

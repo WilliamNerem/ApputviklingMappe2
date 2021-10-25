@@ -49,6 +49,7 @@ public class Preferanser extends AppCompatActivity {
         timeButton = findViewById(R.id.time);
         savePreferanse = (ImageButton) findViewById(R.id.savePreferanse);
         timeButton.setText(getCurrentTime());
+        createNotificationChannel();
 
         if (settingsSwitch.isChecked()) {
             timeButton.setEnabled(true);
@@ -57,6 +58,7 @@ public class Preferanser extends AppCompatActivity {
         else {
             timeButton.setEnabled(false);
             timeButton.setText("--:--");
+            stoppPeriodisk(settingsSwitch);
         }
         standardPrefs();
 
@@ -91,6 +93,17 @@ public class Preferanser extends AppCompatActivity {
         }
     }
 
+    public void stoppPeriodisk(View v) {
+        Intent i = new Intent(this, RestaurantService.class);
+        PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
+
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if(alarm != null){
+            alarm.cancel(pintent);
+        }
+    }
+
         private void buttons() {
         settingsSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +114,8 @@ public class Preferanser extends AppCompatActivity {
                     timeButton.setText(getCurrentTime());
                     editPrefs("SMS_Time",timeButton.getText().toString());
                     editPrefs("SMS_Boolean", "true");
+                    Intent i = new Intent(Preferanser.this, RestaurantService.class);
+                    Preferanser.this.startService(i);
                     SendSMS(view);
                     startService(view);
                 }
