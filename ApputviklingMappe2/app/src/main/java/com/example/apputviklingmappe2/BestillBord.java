@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class BestillBord extends AppCompatActivity {
     private Button timeButton;
     private Button friendsButton;
     private Spinner restaurantSpinner;
+    private ImageButton toolbarBack;
     private ImageView ivPreferanser;
     private DBHandler db;
     ArrayList<Venn> chosenVenner= new ArrayList();
@@ -52,11 +54,14 @@ public class BestillBord extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bestill_bord);
+        TextView tvTitle = (TextView) findViewById(R.id.title);
+        tvTitle.setText(R.string.titleBestillBord);
         initTimePicker();
         timeButton = findViewById(R.id.choseTime);
         timeButton.setText(getCurrentTime());
         friendsButton = findViewById(R.id.chooseFriend);
         restaurantSpinner = (Spinner) findViewById(R.id.chooseRestaurant);
+        toolbarBack = (ImageButton) findViewById(R.id.back);
         ivPreferanser = findViewById(R.id.settings);
         strAntallVennerValgt = getString(R.string.hintAntallVenner, antallVennerValgt);
         friendsButton.setText(strAntallVennerValgt);
@@ -67,6 +72,14 @@ public class BestillBord extends AppCompatActivity {
     }
 
     private void buttons(){
+        toolbarBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BestillBord.this, MainActivity.class));
+                finishAffinity();
+            }
+        });
+
         ivPreferanser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

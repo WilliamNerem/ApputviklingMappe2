@@ -30,6 +30,7 @@ public class Restauranter extends AppCompatActivity {
     DBHandler db;
 
     private Spinner spinner;
+    private ImageButton toolbarBack;
     private ImageButton toolbarList;
     private ImageView ivPreferanser;
 
@@ -37,6 +38,9 @@ public class Restauranter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restauranter);
+        TextView tvTitle = (TextView) findViewById(R.id.title);
+        tvTitle.setText(R.string.titleRestauranter);
+        toolbarBack = (ImageButton) findViewById(R.id.back);
         toolbarList = (ImageButton) findViewById(R.id.list);
         ivPreferanser = findViewById(R.id.settings);
         toolbarButtons();
@@ -49,6 +53,14 @@ public class Restauranter extends AppCompatActivity {
     }
 
     private void toolbarButtons(){
+        toolbarBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Restauranter.this, MainActivity.class));
+                finishAffinity();
+            }
+        });
+
         toolbarList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

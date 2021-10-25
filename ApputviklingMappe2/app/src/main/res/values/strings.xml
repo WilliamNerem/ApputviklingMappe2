@@ -1,5 +1,11 @@
 <resources>
     <string name="title">Restaurant app</string>
+    <string name="titleVenner">Ny venn</string>
+    <string name="titleVennerList">Alle venner</string>
+    <string name="titleRestauranter">Ny restaurant</string>
+    <string name="titleRestauranterList">Alle restauranter</string>
+    <string name="titleBestillBord">Bestill bord</string>
+    <string name="titlePreferanser">Preferanser</string>
     <string name="hintName">Skriv inn navn</string>
     <string name="hintPhone">Skriv inn telefonnummer</string>
     <string name="hintAddress">Skriv inn adresse</string>

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,22 +22,34 @@ public class Venner extends AppCompatActivity {
     EditText phonein;
     DBHandler db;
     private ImageButton toolbarList;
+    private ImageButton toolbarBack;
     private ImageView ivPreferanser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.venner);
+        TextView tvTitle = (TextView) findViewById(R.id.title);
+        tvTitle.setText(R.string.titleVenner);
         namein = (EditText) findViewById(R.id.name);
         phonein = (EditText) findViewById(R.id.phone);
         db = new DBHandler(this);
         toolbarList = (ImageButton) findViewById(R.id.list);
+        toolbarBack = (ImageButton) findViewById(R.id.back);
         ivPreferanser = findViewById(R.id.settings);
         toolbarButtons();
         db = new DBHandler(this);
     }
 
     private void toolbarButtons(){
+        toolbarBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Venner.this, MainActivity.class));
+                finishAffinity();
+            }
+        });
+
         toolbarList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
