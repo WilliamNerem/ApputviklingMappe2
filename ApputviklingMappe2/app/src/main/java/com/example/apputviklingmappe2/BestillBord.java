@@ -1,7 +1,6 @@
 package com.example.apputviklingmappe2;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -22,18 +20,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import java.sql.Array;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.TimeZone;
 
 public class BestillBord extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
@@ -43,11 +32,10 @@ public class BestillBord extends AppCompatActivity {
     private ImageButton toolbarBack;
     private ImageView ivPreferanser;
     private DBHandler db;
-    ArrayList<Venn> chosenVenner= new ArrayList();
+    private String strAntallVennerValgt;
+    private final ArrayList<Venn> chosenVenner= new ArrayList<>();
+    private int antallVennerValgt = 0;
     static boolean[] checkedItems = new boolean[0];
-    int bes_id_number;
-    int antallVennerValgt = 0;
-    String strAntallVennerValgt;
 
 
     @Override
@@ -96,7 +84,7 @@ public class BestillBord extends AppCompatActivity {
                 valgt = res;
             }
         }
-        bes_id_number =  db.findNumberofuniqueBestillinger() +1;
+        int bes_id_number = db.findNumberofuniqueBestillinger() + 1;
         for(Venn enVenn : chosenVenner) {
             Bestilling enBestilling = new Bestilling(bes_id_number, valgt, enVenn, timeButton.getText().toString());
             db.addBestilling(enBestilling);

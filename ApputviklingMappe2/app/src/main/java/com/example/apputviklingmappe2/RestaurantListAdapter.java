@@ -14,21 +14,15 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
     private final static String TAG = "RestaurantListAdapter";
-
     private final Context mContext;
-    int mResource;
-    DBHandler db;
-    List<Restaurant> listRestaurant;
-    private ImageButton buttonEditRestaurant;
-    private ImageButton buttonDeleteRestaurant;
+    private final int mResource;
+    private DBHandler db;
+    private final List<Restaurant> listRestaurant;
 
     public RestaurantListAdapter(Context context, int resource, List<Restaurant> objects) {
         super(context, resource, objects);
@@ -46,8 +40,8 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
 
         View currentView = convertView;
 
-        buttonEditRestaurant = (ImageButton) convertView.findViewById(R.id.buttonEditRestaurant);
-        buttonDeleteRestaurant = (ImageButton) convertView.findViewById(R.id.buttonDeleteRestaurant);
+        ImageButton buttonEditRestaurant = (ImageButton) convertView.findViewById(R.id.buttonEditRestaurant);
+        ImageButton buttonDeleteRestaurant = (ImageButton) convertView.findViewById(R.id.buttonDeleteRestaurant);
 
         long id = getItem(position).get_ID();
         String name = getItem(position).getNavn();

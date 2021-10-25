@@ -3,26 +3,17 @@ package com.example.apputviklingmappe2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class RestauranterList extends AppCompatActivity {
     private ImageButton toolbarList;
     private ImageButton toolbarBack;
     private ImageView ivPreferanser;
-    DBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +28,7 @@ public class RestauranterList extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_view_restauranter);
 
-        db = new DBHandler(this);
+        DBHandler db = new DBHandler(this);
         List<Restaurant> restaurantList = db.findAllRestauranter();
 
         RestaurantListAdapter adapter = new RestaurantListAdapter(this, R.layout.list_item_restauranter, restaurantList);

@@ -3,35 +3,23 @@ package com.example.apputviklingmappe2;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.text.Editable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class VennListAdapter extends ArrayAdapter<Venn> {
     private final static String TAG = "VennListAdapter";
-
     private final Context mContext;
-    int mResource;
-    DBHandler db;
-    List<Venn> vennList;
-
-    private ImageButton buttonEditVenn;
-    private ImageButton buttonDeleteVenn;
+    private final int mResource;
+    private DBHandler db;
+    private final List<Venn> vennList;
 
     public VennListAdapter(Context context, int resource, List<Venn> objects) {
         super(context, resource, objects);
@@ -49,8 +37,8 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
 
         View currentView = convertView;
 
-        buttonEditVenn = (ImageButton) convertView.findViewById(R.id.buttonEdit);
-        buttonDeleteVenn = (ImageButton) convertView.findViewById(R.id.buttonDelete);
+        ImageButton buttonEditVenn = (ImageButton) convertView.findViewById(R.id.buttonEdit);
+        ImageButton buttonDeleteVenn = (ImageButton) convertView.findViewById(R.id.buttonDelete);
 
         long id = getItem(position).get_ID();
         String name = getItem(position).getNavn();

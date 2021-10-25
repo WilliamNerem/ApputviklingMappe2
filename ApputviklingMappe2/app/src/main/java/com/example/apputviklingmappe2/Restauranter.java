@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -15,21 +14,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import java.util.List;
-import java.util.Objects;
 
 public class Restauranter extends AppCompatActivity {
-    EditText namein;
-    EditText adressin;
-    EditText phonein;
-    Spinner typein;
-    DBHandler db;
-
-    private Spinner spinner;
+    private EditText namein;
+    private EditText adressin;
+    private EditText phonein;
+    private Spinner typein;
+    private DBHandler db;
     private ImageButton toolbarBack;
     private ImageButton toolbarList;
     private ImageView ivPreferanser;

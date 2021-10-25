@@ -3,27 +3,19 @@ package com.example.apputviklingmappe2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class VennerList extends AppCompatActivity {
     private ImageButton toolbarBack;
     private ImageButton toolbarList;
     private ImageButton buttonEditVenn;
     private ImageView ivPreferanser;
-    DBHandler db;
+    private DBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

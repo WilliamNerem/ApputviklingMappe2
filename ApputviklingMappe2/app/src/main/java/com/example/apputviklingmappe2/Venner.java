@@ -4,23 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import java.util.List;
-import java.util.Objects;
 
 public class Venner extends AppCompatActivity {
-    EditText namein;
-    EditText phonein;
-    DBHandler db;
+    private EditText namein;
+    private EditText phonein;
+    private DBHandler db;
     private ImageButton toolbarList;
     private ImageButton toolbarBack;
     private ImageView ivPreferanser;
