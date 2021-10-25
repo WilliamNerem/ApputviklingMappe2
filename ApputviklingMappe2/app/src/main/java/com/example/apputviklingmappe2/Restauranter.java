@@ -30,6 +30,7 @@ public class Restauranter extends AppCompatActivity {
     DBHandler db;
 
     private Spinner spinner;
+    private ImageButton toolbarBack;
     private ImageButton toolbarList;
     private ImageView ivPreferanser;
 
@@ -37,6 +38,9 @@ public class Restauranter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restauranter);
+        TextView tvTitle = (TextView) findViewById(R.id.title);
+        tvTitle.setText(R.string.titleRestauranter);
+        toolbarBack = (ImageButton) findViewById(R.id.back);
         toolbarList = (ImageButton) findViewById(R.id.list);
         ivPreferanser = findViewById(R.id.settings);
         toolbarButtons();
@@ -49,6 +53,14 @@ public class Restauranter extends AppCompatActivity {
     }
 
     private void toolbarButtons(){
+        toolbarBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Restauranter.this, MainActivity.class));
+                finishAffinity();
+            }
+        });
+
         toolbarList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +130,23 @@ public class Restauranter extends AppCompatActivity {
         phonein.setText("");
         typein.setSelection(0);
         Toast.makeText(getBaseContext(), "Restaurant lagt til", Toast.LENGTH_SHORT).show();
+    }
+
+    public void validation(View v){
+        String strName = namein.getText().toString();
+        String strAddress = adressin.getText().toString();
+        String strPhone = phonein.getText().toString();
+        String strType = typein.getSelectedItem().toString();
+
+        if (strName.equals("") || strAddress.equals("") || strPhone.equals("") || strType.equals("Velg type restaurant")){
+            Toast.makeText(getBaseContext(),"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
+        } else if(!strAddress.matches("^[A-Z][a-z]+ [0-9]+[A-Za-z]?$")){
+            Toast.makeText(getBaseContext(),"Adressen må være gyldig", Toast.LENGTH_SHORT).show();
+        } else if(!strPhone.matches("^[0-9]{8}$")){
+            Toast.makeText(getBaseContext(),"Telefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
+        } else {
+            addinDB(v);
+        }
     }
 
     public void showallDB(View v) {

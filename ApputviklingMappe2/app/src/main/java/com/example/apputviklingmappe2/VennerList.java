@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class VennerList extends AppCompatActivity {
-
+    private ImageButton toolbarBack;
     private ImageButton toolbarList;
     private ImageButton buttonEditVenn;
     private ImageView ivPreferanser;
@@ -28,8 +29,11 @@ public class VennerList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.venner_list);
+        TextView tvTitle = (TextView) findViewById(R.id.title);
+        tvTitle.setText(R.string.titleVennerList);
 
         toolbarList = (ImageButton) findViewById(R.id.list);
+        toolbarBack = (ImageButton) findViewById(R.id.back);
         buttonEditVenn = (ImageButton) findViewById(R.id.buttonEdit);
         ivPreferanser = findViewById(R.id.settings);
 
@@ -46,6 +50,14 @@ public class VennerList extends AppCompatActivity {
     }
 
     private void toolbarButtons(){
+        toolbarBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(VennerList.this, MainActivity.class));
+                finishAffinity();
+            }
+        });
+
         toolbarList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

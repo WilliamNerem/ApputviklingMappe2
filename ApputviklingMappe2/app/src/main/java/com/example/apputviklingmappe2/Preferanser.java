@@ -17,6 +17,7 @@ import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import androidx.core.app.ActivityCompat;
 import java.util.Calendar;
 
 public class Preferanser extends AppCompatActivity {
-    private ImageButton toolbarList;
+    private ImageButton toolbarBack;
     private SwitchCompat settingsSwitch;
     private TimePickerDialog timePickerDialog;
     private Button timeButton;
@@ -41,8 +42,10 @@ public class Preferanser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferanser);
         prefs = this.getSharedPreferences("com.example.apputviklingmappe2", Context.MODE_PRIVATE);
+        TextView tvTitle = (TextView) findViewById(R.id.title);
+        tvTitle.setText(R.string.titlePreferanser);
         settingsSwitch = (SwitchCompat)findViewById(R.id.settingsSwitch);
-        toolbarList = (ImageButton) findViewById(R.id.list);
+        toolbarBack = (ImageButton) findViewById(R.id.back);
         timeButton = findViewById(R.id.time);
         savePreferanse = (ImageButton) findViewById(R.id.savePreferanse);
         timeButton.setText(getCurrentTime());
@@ -56,19 +59,21 @@ public class Preferanser extends AppCompatActivity {
             timeButton.setText("--:--");
         }
         standardPrefs();
+
+        toolbarButtons();
         buttons();
         initTimePicker();
     }
 
-    /*private void toolbarButtons(){
-        toolbarList.setOnClickListener(new View.OnClickListener() {
+    private void toolbarButtons(){
+        toolbarBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Preferanser.this, Preferanser.class));
+                startActivity(new Intent(Preferanser.this, MainActivity.class));
+                finishAffinity();
             }
         });
     }
-     */
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
