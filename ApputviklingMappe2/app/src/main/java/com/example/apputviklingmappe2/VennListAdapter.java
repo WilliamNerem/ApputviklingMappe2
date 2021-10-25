@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -87,12 +88,33 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
         return convertView;
     }
 
+    public boolean validation(EditText name, EditText phone, Context context){
+        String strName = name.getText().toString();
+        String strPhone = phone.getText().toString();
+
+        if (strName.equals("") || strPhone.equals("")){
+            Toast.makeText(context,"Venn er ikke endret.\nAlle felt må fylles ut", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(!strName.matches("^[A-Z][a-z-., ]+$")){
+            Toast.makeText(context,"Venn er ikke endret.\nNavn må være gyldig med stor forbokstav", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(!strPhone.matches("^[0-9]{8}$")){
+            Toast.makeText(context,"Venn er ikke endret.\nTelefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     private AlertDialog buildAlertDialog(View view, long id, TextView tvName, TextView tvPhone){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
         alertDialog.setView(R.layout.alert_edit_venn);
 
         LayoutInflater alertInflater = LayoutInflater.from(view.getContext());
         View alertConvertView = alertInflater.inflate(R.layout.alert_edit_venn, null);
+
+        EditText editName = alertConvertView.findViewById(R.id.name);
+        EditText editPhone = alertConvertView.findViewById(R.id.phone);
 
         alertDialog.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -102,25 +124,21 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
 
         alertDialog.setPositiveButton("Lagre", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-
-                EditText editName = alertConvertView.findViewById(R.id.name);
-                EditText editPhone = alertConvertView.findViewById(R.id.phone);
-
-                db = new DBHandler(alertConvertView.getContext());
-                Venn enVenn = db.findVenn(id);
-                enVenn.setNavn(editName.getText().toString());
-                enVenn.setTelefon(editPhone.getText().toString());
-                db.updateVenn(enVenn);
-                vennList.clear();
-                vennList.addAll(db.findAllVenner());
-                notifyDataSetChanged();
+                if (validation(editName, editPhone, alertConvertView.getContext())){
+                    db = new DBHandler(alertConvertView.getContext());
+                    Venn enVenn = db.findVenn(id);
+                    enVenn.setNavn(editName.getText().toString());
+                    enVenn.setTelefon(editPhone.getText().toString());
+                    db.updateVenn(enVenn);
+                    vennList.clear();
+                    vennList.addAll(db.findAllVenner());
+                    notifyDataSetChanged();
+                }
             }
         });
 
         alertDialog.setView(alertConvertView);
 
-        EditText editName = alertConvertView.findViewById(R.id.name);
-        EditText editPhone = alertConvertView.findViewById(R.id.phone);
         editName.setText(tvName.getText());
         editPhone.setText(tvPhone.getText());
 

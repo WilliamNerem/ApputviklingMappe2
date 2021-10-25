@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -88,6 +89,25 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         return convertView;
     }
 
+    public boolean validation(EditText name, EditText address, EditText phone, Context context){
+        String strName = name.getText().toString();
+        String strAddress = address.getText().toString();
+        String strPhone = phone.getText().toString();
+
+        if (strName.equals("") || strAddress.equals("") || strPhone.equals("")){
+            Toast.makeText(context,"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(!strAddress.matches("^[A-Z][a-z]+ [0-9]+[A-Za-z]?$")){
+            Toast.makeText(context,"Adressen må være gyldig", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(!strPhone.matches("^[0-9]{8}$")){
+            Toast.makeText(context,"Telefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     private AlertDialog buildAlertDialog(View view, long id, TextView tvName, TextView tvAddress, TextView tvPhone, TextView tvType){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
         alertDialog.setView(R.layout.alert_edit_restaurant);
@@ -109,16 +129,18 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
                 EditText editPhone = alertConvertView.findViewById(R.id.phone);
                 Spinner editType = alertConvertView.findViewById(R.id.type);
 
-                db = new DBHandler(alertConvertView.getContext());
-                Restaurant enRestaurant = db.findRestaurant(id);
-                enRestaurant.setNavn(editName.getText().toString());
-                enRestaurant.setAdresse(editAddress.getText().toString());
-                enRestaurant.setTelefon(editPhone.getText().toString());
-                enRestaurant.setType(editType.getSelectedItem().toString());
-                db.updateRestaurant(enRestaurant);
-                listRestaurant.clear();
-                listRestaurant.addAll(db.findAllRestauranter());
-                notifyDataSetChanged();
+                if (validation(editName, editAddress, editPhone, alertConvertView.getContext())){
+                    db = new DBHandler(alertConvertView.getContext());
+                    Restaurant enRestaurant = db.findRestaurant(id);
+                    enRestaurant.setNavn(editName.getText().toString());
+                    enRestaurant.setAdresse(editAddress.getText().toString());
+                    enRestaurant.setTelefon(editPhone.getText().toString());
+                    enRestaurant.setType(editType.getSelectedItem().toString());
+                    db.updateRestaurant(enRestaurant);
+                    listRestaurant.clear();
+                    listRestaurant.addAll(db.findAllRestauranter());
+                    notifyDataSetChanged();
+                }
             }
         });
 

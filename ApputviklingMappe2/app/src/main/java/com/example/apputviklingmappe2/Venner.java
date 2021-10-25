@@ -63,6 +63,21 @@ public class Venner extends AppCompatActivity {
         Toast.makeText(getBaseContext(),"Venn lagt til", Toast.LENGTH_SHORT).show();
     }
 
+    public void validation(View v){
+        String strName = namein.getText().toString();
+        String strPhone = phonein.getText().toString();
+
+        if (strName.equals("") || strPhone.equals("")){
+            Toast.makeText(getBaseContext(),"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
+        } else if(!strName.matches("^[A-Z][a-z-., ]+$")){
+            Toast.makeText(getBaseContext(),"Navn må være gyldig med stor forbokstav", Toast.LENGTH_SHORT).show();
+        } else if(!strPhone.matches("^[0-9]{8}$")){
+            Toast.makeText(getBaseContext(),"Telefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
+        } else {
+            addinDB(v);
+        }
+    }
+
     public void showallDB(View v) {
         String text = "";
         List<Venn> venner = db.findAllVenner();
