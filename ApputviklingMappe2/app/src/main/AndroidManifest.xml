@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.apputviklingmappe2">
 
     <application
@@ -42,6 +43,21 @@
             android:name=".Preferanser"
             android:label="Velg preferanser">
         </activity>
+        <activity
+            android:name=".RestaurantNotification"
+            android:label=".Restaurant notifikasjon">
+        </activity>
+        <receiver android:name=".RestaurantBroadcastReceiver"
+            android:exported="false"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.example.apputviklingmappe2.mybroadcast" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".RestaurantService"></service>
+        <service android:name=".SetPeriodicalService"></service>
     </application>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
 </manifest>

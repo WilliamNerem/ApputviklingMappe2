@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void startService(View v) {
+        Intent intent = new Intent(this, RestaurantBroadcastReceiver.class);
+        this.startService(intent);
+    }
+
     private void buttons(){
         tvButtonBestillBord.setOnClickListener(new View.OnClickListener() {
             @Override
