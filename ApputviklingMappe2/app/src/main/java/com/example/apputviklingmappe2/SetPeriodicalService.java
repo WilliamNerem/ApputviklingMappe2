@@ -50,16 +50,13 @@ public class SetPeriodicalService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         java.util.Calendar cal = Calendar.getInstance();
         Intent i = new Intent(this, RestaurantService.class);
-        PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
         Intent iPer = new Intent(this, SMSService.class);
+        PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
         PendingIntent pintentPer = PendingIntent.getService(this,0,iPer,0);
-        System.out.println("Er i Periodical onStart");
-        AlarmManager alarm1 =
+        AlarmManager alarm =
                 (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        AlarmManager alarm2 =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarm1.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60 * 1000, pintent);
-        alarm2.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60 * 1000, pintentPer);
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60 * 1000, pintent);
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60 * 1000, pintentPer);
         return super.onStartCommand(intent, flags, startId);
     }
 

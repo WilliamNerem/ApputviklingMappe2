@@ -1,7 +1,6 @@
 package com.example.apputviklingmappe2;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -11,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,8 +19,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Preferanser extends AppCompatActivity {
@@ -47,13 +43,8 @@ public class Preferanser extends AppCompatActivity {
         timeButton = findViewById(R.id.time);
         savePreferanse = (ImageButton) findViewById(R.id.savePreferanse);
         timeButton.setText(getCurrentTime());
+        settingsSwitch.setChecked(prefs.getBoolean("SMS_Boolean", false));
 
-        if(prefs.getString("SMS_Boolean","").equals("true")) {
-            settingsSwitch.setChecked(true);
-        }
-        else {
-            settingsSwitch.setChecked(false);
-        }
         if (settingsSwitch.isChecked()) {
             timeButton.setEnabled(true);
             timeButton.setText(getCurrentTime());
@@ -64,7 +55,6 @@ public class Preferanser extends AppCompatActivity {
             stoppPeriodisk(settingsSwitch);
         }
         standardPrefs();
-
         toolbarButtons();
         buttons();
         initTimePicker();
@@ -132,21 +122,25 @@ public class Preferanser extends AppCompatActivity {
             public void onClick(View view) {
                 if (settingsSwitch.isChecked()) {
                     editPrefs("SMS_Time", timeButton.getText().toString());
-                    editPrefs("SMS_Boolean", "true");
+                    editPrefs("SMS_Boolean", true);
                     startService(view);
                 }
                 else {
                     stopPeriodical(view);
-                    editPrefs("SMS_Boolean", "false");
+                    editPrefs("SMS_Boolean", false);
                 }
                 Toast.makeText(getBaseContext(), "Innstillingene er lagret", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void editPrefs(String pref, String value) {
+    public void editPrefs(String pref, Object value) {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(pref,value);
+        if (value instanceof String){
+            editor.putString(pref, (String) value);
+        } else {
+            editor.putBoolean(pref, (boolean) value);
+        }
         editor.apply();
     }
 
@@ -154,7 +148,6 @@ public class Preferanser extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("SMS_Message", "Minner om bordbestilling i dag. Vel møtt!");
         editor.putString("SMS_Time", "12:00");
-        editor.putString("SMS_Boolean", "true");
         editor.apply();
     }
 
@@ -165,20 +158,15 @@ public class Preferanser extends AppCompatActivity {
 
     public void stopPeriodical(View v) {
         Intent i = new Intent(this, RestaurantService.class);
-        PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
         Intent iPer = new Intent(this, SMSService.class);
+        PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
         PendingIntent pIPER = PendingIntent.getService(this, 0, iPer, 0);
-        AlarmManager alarm1 =
+        AlarmManager alarm =
                 (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        if (alarm1!= null) {
-            alarm1.cancel(pintent);
+        if (alarm!= null) {
+            alarm.cancel(pintent);
+            alarm.cancel(pIPER);
         }
-        AlarmManager alarm2 =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        if (alarm2!= null) {
-            alarm2.cancel(pIPER);
-        }
-
     }
 
     static String getCurrentTime() {

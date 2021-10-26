@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
+import java.util.List;
+
 
 public class RestaurantService extends Service {
     DBHandler db;
@@ -23,10 +25,16 @@ public class RestaurantService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        db = new DBHandler(this);
         SharedPreferences prefs = this.getSharedPreferences("com.example.apputviklingmappe2", Context.MODE_PRIVATE);
-        String time = prefs.getString("SMS_TIME", "");
-            System.out.println(Preferanser.getCurrentTime());
-            // Nå skal den sjekke databasen for bestillinger
+        String time = prefs.getString("SMS_Time", "");
+        String currentTime = Preferanser.getCurrentTime();
+        List<Bestilling> bestillinger = db.findAllBestillinger();
+        if (currentTime.equals(time)) {
+            if (db.findNumberofuniqueBestillinger() > 0) {
+                System.out.println(time + " this is time");
+                System.out.println(currentTime + " this is currenttime");
+                // Nå skal den sjekke databasen for bestillinger
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Intent i = new Intent(this, MainActivity.class);
                 PendingIntent pIntent = PendingIntent.getActivity(this, 0, i, 0);
@@ -37,6 +45,11 @@ public class RestaurantService extends Service {
                         .setContentIntent(pIntent).build();
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
                 notificationManager.notify(0, notification);
+            }
+        }
+
+
+
         return super.onStartCommand(intent, flags, startId);
     }
 }
