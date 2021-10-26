@@ -19,22 +19,23 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" >
 
         <androidx.appcompat.widget.SwitchCompat
-        android:layout_width="96dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/settingsSwitch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/phone"
-        app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/settingsSwitch"
+            android:layout_width="63dp"
+            android:layout_height="28dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/phone"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
             android:id="@+id/phone"
-            android:layout_width="93dp"
-            android:layout_height="29dp"
+            android:layout_width="134dp"
+            android:layout_height="28dp"
             android:ems="10"
+            android:gravity="center"
             android:hint="@string/hintSMS"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/settingsSwitch"
@@ -71,7 +72,7 @@
         <Button
             android:id="@+id/time"
             style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-            android:layout_width="157dp"
+            android:layout_width="166dp"
             android:layout_height="38dp"
             android:onClick="openTimePicker"
             app:layout_constraintBottom_toBottomOf="parent"
