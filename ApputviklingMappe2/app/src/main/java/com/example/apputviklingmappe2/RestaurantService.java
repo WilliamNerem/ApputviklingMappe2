@@ -33,7 +33,7 @@ public class RestaurantService extends Service {
                 Notification notification = new NotificationCompat.Builder(this, "22")
                         .setContentTitle("Restaurant notifikasjon")
                         .setContentText("Du har bestilt restaurant!!")
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_baseline_restaurant_24)
                         .setContentIntent(pIntent).build();
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
                 notificationManager.notify(0, notification);

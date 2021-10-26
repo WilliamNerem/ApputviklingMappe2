@@ -41,21 +41,12 @@ public class SMSService extends Service {
             SmsManager smsMan = SmsManager.getDefault();
             SharedPreferences prefs = this.getSharedPreferences("com.example.apputviklingmappe2", Context.MODE_PRIVATE);
             String SMS_time = prefs.getString("SMS_Time", "");
-            System.out.println(SMS_time);
             List<Bestilling> bestillinger = db.findAllBestillinger();
-            ArrayList<Venn> venner = new ArrayList<>();
-            SharedPreferences.Editor editor = prefs.edit();
-            //editor.putString("SMS_Message","Hei "+)
-            //editor.apply();
             String smsstdout = prefs.getString("SMS_Message", "");
-            for(Bestilling bestilling : bestillinger) {
-                venner.add(bestilling.venn);
-            }
             if (currentTime.equals(SMS_time)) {
-                if (venner.size() > 0) {
-                    for (Venn venn : venner) {
-                        System.out.println("Sender SMS til" + venn.getTelefon());
-                        smsMan.sendTextMessage("+15" + venn.getTelefon(), null, smsstdout, null, null);
+                if (db.findNumberofuniqueBestillinger() > 0) {
+                    for (Bestilling bestilling : bestillinger) {
+                        smsMan.sendTextMessage("+15" + bestilling.getVenn().getTelefon(), null, smsstdout+"\n"+smsout(bestilling), null, null);
                     }
                 }
             }
@@ -66,7 +57,7 @@ public class SMSService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public String smsout(Venn venn) {
-        return "Hei "+venn.getNavn()+"! \n Minner om bordbestillingen du er satt opp på på resta";
+    public String smsout (Bestilling bestilling) {
+        return "Info om bestillingen:\nNavn: "+bestilling.venn.getNavn()+"\nRestaurant: "+bestilling.getRestaurant().getNavn()+"\nKlokken: "+bestilling.getTime();
     }
 }

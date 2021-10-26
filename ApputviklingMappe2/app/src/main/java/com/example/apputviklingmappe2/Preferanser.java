@@ -48,6 +48,12 @@ public class Preferanser extends AppCompatActivity {
         savePreferanse = (ImageButton) findViewById(R.id.savePreferanse);
         timeButton.setText(getCurrentTime());
 
+        if(prefs.getString("SMS_Boolean","").equals("true")) {
+            settingsSwitch.setChecked(true);
+        }
+        else {
+            settingsSwitch.setChecked(false);
+        }
         if (settingsSwitch.isChecked()) {
             timeButton.setEnabled(true);
             timeButton.setText(getCurrentTime());
@@ -112,23 +118,27 @@ public class Preferanser extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "SMS varsling skrudd på", Toast.LENGTH_SHORT).show();
                         timeButton.setEnabled(true);
                         timeButton.setText(getCurrentTime());
-                        editPrefs("SMS_Time", timeButton.getText().toString());
-                        editPrefs("SMS_Boolean", "true");
-                        startService(view);
                     }
                 }
                 else {
                     Toast.makeText(getBaseContext(), "SMS varsling skrudd av", Toast.LENGTH_SHORT).show();
                     timeButton.setEnabled(false);
                     timeButton.setText("--:--");
-                    editPrefs("SMS_Boolean", "false");
-                    stopPeriodical(view);
                 }
             }
         });
         savePreferanse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (settingsSwitch.isChecked()) {
+                    editPrefs("SMS_Time", timeButton.getText().toString());
+                    editPrefs("SMS_Boolean", "true");
+                    startService(view);
+                }
+                else {
+                    stopPeriodical(view);
+                    editPrefs("SMS_Boolean", "false");
+                }
                 Toast.makeText(getBaseContext(), "Innstillingene er lagret", Toast.LENGTH_SHORT).show();
             }
         });
@@ -142,8 +152,8 @@ public class Preferanser extends AppCompatActivity {
 
     public void standardPrefs() {
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("SMS_Message", "Dette er den standarde SMS beskjeden du får");
-        editor.putString("SMS_Time", "12:44");
+        editor.putString("SMS_Message", "Minner om bordbestilling i dag. Vel møtt!");
+        editor.putString("SMS_Time", "12:00");
         editor.putString("SMS_Boolean", "true");
         editor.apply();
     }
@@ -156,10 +166,17 @@ public class Preferanser extends AppCompatActivity {
     public void stopPeriodical(View v) {
         Intent i = new Intent(this, RestaurantService.class);
         PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
-        AlarmManager alarm =
+        Intent iPer = new Intent(this, SMSService.class);
+        PendingIntent pIPER = PendingIntent.getService(this, 0, iPer, 0);
+        AlarmManager alarm1 =
                 (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        if (alarm!= null) {
-            alarm.cancel(pintent);
+        if (alarm1!= null) {
+            alarm1.cancel(pintent);
+        }
+        AlarmManager alarm2 =
+                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (alarm2!= null) {
+            alarm2.cancel(pIPER);
         }
 
     }
