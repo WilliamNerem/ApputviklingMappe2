@@ -22,7 +22,7 @@
         <item>Thai</item>
     </string-array>
     <string name="hintTime">Skriv inn tidspunkt for SMS</string>
-    <string name="hintSMS">SMS av/på</string>
+    <string name="hintSMS">SMS og varsler av/på</string>
     <string name="titleEditVenn">Endre venn</string>
     <string name="titleEditRestaurant">Endre restaurant</string>
     <string name="save">Lagre</string>
