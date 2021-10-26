@@ -15,7 +15,7 @@ public class DBHandler extends SQLiteOpenHelper {
     static String KEY_ID = "_ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
-    static int DATABASE_VERSION = 8;
+    static int DATABASE_VERSION = 10;
     static String DATABASE_NAME = "Mappe_2_tabeller";
     static String TABLE_RESTAURANTER = "Restauranter";
     static String RES_KEY_ID = "_ID";
@@ -96,6 +96,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
         return maxid;
     }
+
     public List<Venn> findAllVenner() {
         List<Venn> vennList = new ArrayList<Venn>();
         String selectQuery = "SELECT * FROM " + TABLE_VENNER;
@@ -177,12 +178,21 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void deleteBestilling(Long bes_id, Long venn_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_BESTILLINGER, BES_KEY_ID + " =? AND " + KEY_ID + "=?",
+        db.delete(TABLE_BESTILLINGER, BES_KEY_ID + "=? AND " + BES_VENN + "=?",
 
                 new String[]{Long.toString(bes_id), Long.toString(venn_id)});
         db.close();
     }
 
+    /*public int deleteBestillinger(long bes_id, Long venn_id) {
+        String sql = "DELETE FROM Bestillinger WHERE BES_KEY_ID =? AND KEY_ID =?";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();;
+        cursor.close();
+        db.close();
+    }
+     */
     public int updateVenn(Venn venn) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -234,5 +244,20 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return restaurant;
+    }
+
+    public Bestilling findBestilling(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_BESTILLINGER, new String[]{
+                        BES_KEY_ID, BES_RES, BES_VENN, BES_TIME}, BES_KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        Bestilling bestilling = new
+                Bestilling(Long.parseLong(cursor.getString(0)),
+                new Restaurant(cursor.getString(1),null,null,null), findVenn(Long.parseLong(cursor.getString(2))),
+                cursor.getString(3));
+        cursor.close();
+        db.close();
+        return bestilling;
     }
 }

@@ -43,8 +43,14 @@ public class Preferanser extends AppCompatActivity {
         timeButton = findViewById(R.id.time);
         savePreferanse = (ImageButton) findViewById(R.id.savePreferanse);
         timeButton.setText(getCurrentTime());
-        settingsSwitch.setChecked(prefs.getBoolean("SMS_Boolean", false));
-
+        try {
+            settingsSwitch.setChecked(prefs.getBoolean("SMS_Boolean", false));
+        }
+        catch(Exception e) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("SMS_Boolean", false);
+            editor.apply();
+        }
         if (settingsSwitch.isChecked()) {
             timeButton.setEnabled(true);
             timeButton.setText(getCurrentTime());
@@ -52,7 +58,6 @@ public class Preferanser extends AppCompatActivity {
         else {
             timeButton.setEnabled(false);
             timeButton.setText("--:--");
-            stoppPeriodisk(settingsSwitch);
         }
         standardPrefs();
         toolbarButtons();
@@ -83,17 +88,6 @@ public class Preferanser extends AppCompatActivity {
                 finishAffinity();
             }
         });
-    }
-
-    public void stoppPeriodisk(View v) {
-        Intent i = new Intent(this, RestaurantService.class);
-        PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
-
-        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        if(alarm != null){
-            alarm.cancel(pintent);
-        }
     }
 
         private void buttons() {

@@ -133,7 +133,7 @@ public class Restauranter extends AppCompatActivity {
 
         if (strName.equals("") || strAddress.equals("") || strPhone.equals("") || strType.equals("Velg type restaurant")){
             Toast.makeText(getBaseContext(),"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
-        } else if(!strAddress.matches("^[A-Z][a-z]+ [0-9]+[A-Za-z]?$")){
+        } else if(!strAddress.matches("^[A-Z][a-z ]+ [0-9]+[A-Za-z]?$")){
             Toast.makeText(getBaseContext(),"Adressen må være gyldig", Toast.LENGTH_SHORT).show();
         } else if(!strPhone.matches("^[0-9]{8}$")){
             Toast.makeText(getBaseContext(),"Telefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
