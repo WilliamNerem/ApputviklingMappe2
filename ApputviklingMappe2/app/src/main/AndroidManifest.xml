@@ -43,10 +43,7 @@
             android:name=".Preferanser"
             android:label="Velg preferanser">
         </activity>
-        <activity
-            android:name=".RestaurantNotification"
-            android:label=".Restaurant notifikasjon">
-        </activity>
+
         <receiver android:name=".RestaurantBroadcastReceiver"
             android:exported="false"
             tools:ignore="Instantiatable">
@@ -56,6 +53,7 @@
         </receiver>
         <service android:name=".RestaurantService"></service>
         <service android:name=".SetPeriodicalService"></service>
+        <service android:name=".SMSService"></service>
     </application>
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>

@@ -1,6 +1,7 @@
 package com.example.apputviklingmappe2;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
@@ -25,16 +26,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Preferanser extends AppCompatActivity {
+    private static int MY_PERMISSIONS_REQUEST_SEND_SMS;
+    private static int MY_PHONE_STATE_PERMISSION;
     private ImageButton toolbarBack;
     private SwitchCompat settingsSwitch;
     private TimePickerDialog timePickerDialog;
     private Button timeButton;
     private ImageButton savePreferanse;
-    int MY_PERMISSIONS_REQUEST_SEND_SMS;
-    int MY_PHONE_STATE_PERMISSION;
     SharedPreferences prefs;
 
     @Override
@@ -49,7 +51,6 @@ public class Preferanser extends AppCompatActivity {
         timeButton = findViewById(R.id.time);
         savePreferanse = (ImageButton) findViewById(R.id.savePreferanse);
         timeButton.setText(getCurrentTime());
-        createNotificationChannel();
 
         if (settingsSwitch.isChecked()) {
             timeButton.setEnabled(true);
@@ -67,6 +68,21 @@ public class Preferanser extends AppCompatActivity {
         initTimePicker();
     }
 
+    private boolean checkPermissions() {
+        MY_PERMISSIONS_REQUEST_SEND_SMS = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS);
+        MY_PHONE_STATE_PERMISSION = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE);
+        if (!(MY_PERMISSIONS_REQUEST_SEND_SMS == PackageManager.PERMISSION_GRANTED &&
+                MY_PHONE_STATE_PERMISSION ==
+                        PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions( this, new String[]{Manifest.permission.SEND_SMS,
+                    Manifest.permission.READ_PHONE_STATE}, 0);
+            return false;
+        }
+        return true;
+    }
+
     private void toolbarButtons(){
         toolbarBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,22 +91,6 @@ public class Preferanser extends AppCompatActivity {
                 finishAffinity();
             }
         });
-    }
-
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "ChannelName";
-            String description = "ChannelDescription";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("22", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 
     public void stoppPeriodisk(View v) {
@@ -109,15 +109,17 @@ public class Preferanser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (settingsSwitch.isChecked()) {
-                    Toast.makeText(getBaseContext(), "SMS varsling skrudd på", Toast.LENGTH_SHORT).show();
-                    timeButton.setEnabled(true);
-                    timeButton.setText(getCurrentTime());
-                    editPrefs("SMS_Time",timeButton.getText().toString());
-                    editPrefs("SMS_Boolean", "true");
-                    Intent i = new Intent(Preferanser.this, RestaurantService.class);
-                    Preferanser.this.startService(i);
-                    SendSMS(view);
-                    startService(view);
+                    if(!checkPermissions()) {
+                        settingsSwitch.setChecked(false);
+                    }
+                    else {
+                        Toast.makeText(getBaseContext(), "SMS varsling skrudd på", Toast.LENGTH_SHORT).show();
+                        timeButton.setEnabled(true);
+                        timeButton.setText(getCurrentTime());
+                        editPrefs("SMS_Time", timeButton.getText().toString());
+                        editPrefs("SMS_Boolean", "true");
+                        startService(view);
+                    }
                 }
                 else {
                     Toast.makeText(getBaseContext(), "SMS varsling skrudd av", Toast.LENGTH_SHORT).show();
@@ -145,14 +147,13 @@ public class Preferanser extends AppCompatActivity {
     public void standardPrefs() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("SMS_Message", "Dette er den standarde SMS beskjeden du får");
-        editor.putString("SMS_Time", "12:00");
+        editor.putString("SMS_Time", "12:44");
         editor.putString("SMS_Boolean", "true");
         editor.apply();
     }
 
     public void startService(View v) {
-        Intent intent = new Intent();
-        intent.setAction("com.example.apputviklingmappe2.RestaurantBroadcastReceiver");
+        Intent intent = new Intent(this, RestaurantBroadcastReceiver.class);
         sendBroadcast(intent);
     }
 
@@ -165,26 +166,6 @@ public class Preferanser extends AppCompatActivity {
             alarm.cancel(pintent);
         }
 
-    }
-
-    public void SendSMS(View v) {
-        MY_PERMISSIONS_REQUEST_SEND_SMS = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS);
-        MY_PHONE_STATE_PERMISSION = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.READ_PHONE_STATE);
-        if (MY_PERMISSIONS_REQUEST_SEND_SMS == PackageManager.PERMISSION_GRANTED &&
-                MY_PHONE_STATE_PERMISSION ==
-                        PackageManager.PERMISSION_GRANTED) {
-            SmsManager smsMan = SmsManager.getDefault();
-            String smsout = prefs.getString("SMS_Message", "");
-            System.out.println(smsout);
-            smsMan.sendTextMessage("+1555521556", null, smsout, null, null);
-            Toast.makeText(this, "Har sendt sms", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS,
-                    Manifest.permission.READ_PHONE_STATE}, 0);
-        }
     }
 
     static String getCurrentTime() {

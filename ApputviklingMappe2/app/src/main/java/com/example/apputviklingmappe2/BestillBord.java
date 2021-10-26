@@ -95,11 +95,6 @@ public class BestillBord extends AppCompatActivity {
         Toast.makeText(getBaseContext(),"Bestilling lagt til", Toast.LENGTH_SHORT).show();
     }
 
-    public void deleteinDB(Venn venn) {
-        Long bes_id = (Long.parseLong("1"));
-        db.deleteBestilling(bes_id, venn.get_ID());
-    }
-
     private void friendsButtonOnclick() {
         friendsButton.setOnClickListener(new View.OnClickListener() {
             @Override

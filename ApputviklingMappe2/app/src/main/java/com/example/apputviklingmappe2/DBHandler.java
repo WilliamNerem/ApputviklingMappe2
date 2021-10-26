@@ -136,6 +136,29 @@ public class DBHandler extends SQLiteOpenHelper {
         return restaurantList;
     }
 
+    public List<Bestilling> findAllBestillinger() {
+        List<Bestilling> bestillingList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_BESTILLINGER;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Bestilling bestilling = new Bestilling();
+                bestilling.set_ID(cursor.getLong(0));
+                Restaurant restaurant = new Restaurant();
+                restaurant.setNavn(cursor.getString(1));
+                bestilling.setRestaurant(restaurant);
+                Venn venn = findVenn(cursor.getLong(2));
+                bestilling.setVenn(venn);
+                bestilling.setTime(cursor.getString(3));
+                bestillingList.add(bestilling);
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return bestillingList;
+    }
+
     public void deleteVenn(Long in_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_VENNER, KEY_ID + " =? ",
