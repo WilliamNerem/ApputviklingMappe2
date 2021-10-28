@@ -21,10 +21,8 @@ public class RestaurantBroadcastReceiver extends BroadcastReceiver {
             editor.apply();
         }
         if (prefs.getBoolean("SMS_Boolean", false)) {
-            Log.v("Dette", "Er en test : " + context.getSharedPreferences("SMS_Boolean", Activity.MODE_PRIVATE));
             Intent iPeri = new Intent(context, SetPeriodicalService.class);
             context.startService(iPeri);
-            Log.v("onReceive test", "Er i onReceive");
         }
     }
     }

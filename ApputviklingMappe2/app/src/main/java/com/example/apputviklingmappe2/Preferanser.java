@@ -56,7 +56,6 @@ public class Preferanser extends AppCompatActivity {
         toolbarButtons();
         buttons();
         initTimePicker();
-        Log.v("Heiheisann", "LOL SE HER : " + prefs.getBoolean("SMS_Boolean", false));
     }
 
     private boolean checkPermissions() {

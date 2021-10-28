@@ -101,7 +101,6 @@ public class BestillBord extends AppCompatActivity {
                 db.addBestilling(enBestilling);
             }
             chosenVenner.clear();
-            Log.d("Legg inn: ", "legger til bestillinger");
             Toast.makeText(getBaseContext(),"Bestilling lagt til", Toast.LENGTH_SHORT).show();
 
             restaurantSpinner.setSelection(0);

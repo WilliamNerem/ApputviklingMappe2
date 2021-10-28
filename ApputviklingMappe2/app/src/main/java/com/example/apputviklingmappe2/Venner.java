@@ -64,7 +64,6 @@ public class Venner extends AppCompatActivity {
     public void addinDB(View v) {
         Venn venn = new Venn(namein.getText().toString(), phonein.getText().toString());
         db.addVenn(venn);
-        Log.d("Legg inn: ", "legger til venner");
         namein.setText("");
         phonein.setText("");
         Toast.makeText(getBaseContext(),"Venn lagt til", Toast.LENGTH_SHORT).show();

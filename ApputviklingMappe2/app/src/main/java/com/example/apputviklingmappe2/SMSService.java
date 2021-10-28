@@ -28,7 +28,6 @@ public class SMSService extends Service {
         DBHandler db = new DBHandler(this);
         String currentTime = Preferanser.getCurrentTime();
         prefs = this.getSharedPreferences("com.example.apputviklingmappe2", Context.MODE_PRIVATE);
-        Log.v("Heiheisann", "LOL SE HER : " + prefs.getBoolean("SMS_Boolean", false));
         if (MY_PERMISSIONS_REQUEST_SEND_SMS == PackageManager.PERMISSION_GRANTED &&
                 MY_PHONE_STATE_PERMISSION ==
                         PackageManager.PERMISSION_GRANTED) {

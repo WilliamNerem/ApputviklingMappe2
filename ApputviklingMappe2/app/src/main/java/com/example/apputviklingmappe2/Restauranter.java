@@ -125,7 +125,6 @@ public class Restauranter extends AppCompatActivity {
         resValues.put("phone", restaurant.telefon);
         resValues.put("type", restaurant.type);
         getContentResolver().insert( CONTENT_URI, resValues);
-        Log.d("Legg inn: ", "legger til restauranter");
         namein.setText("");
         adressin.setText("");
         phonein.setText("");
