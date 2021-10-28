@@ -158,21 +158,6 @@ public class BestillBord extends AppCompatActivity {
         };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         restaurantSpinner.setAdapter(adapter);
-
-        restaurantSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv = (TextView) view;
-                if (position == 0) {
-                    //tv.setTextColor(Color.GRAY);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     private void updateAntallVenner(){
