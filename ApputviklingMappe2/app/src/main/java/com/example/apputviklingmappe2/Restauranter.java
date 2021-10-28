@@ -1,7 +1,9 @@
 package com.example.apputviklingmappe2;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +28,8 @@ public class Restauranter extends AppCompatActivity {
     private ImageButton toolbarBack;
     private ImageButton toolbarList;
     private ImageView ivPreferanser;
+    public final static String PROVIDER="com.example.apputviklingmappe2.RestaurantProvider";
+    public static final Uri CONTENT_URI= Uri.parse("content://"+ PROVIDER + "/restaurants");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +121,15 @@ public class Restauranter extends AppCompatActivity {
     public void addinDB(View v) {
         Restaurant restaurant = new Restaurant(namein.getText().toString(), adressin.getText().toString(), phonein.getText().toString(), typein.getSelectedItem().toString());
         db.addRestaurant(restaurant);
+        ContentValues resValues = new ContentValues();
+        int id = db.findAllRestauranter().size();
+        resValues.clear();
+        resValues.put("id", id);
+        resValues.put("name", restaurant.navn);
+        resValues.put("address", restaurant.adresse);
+        resValues.put("phone", restaurant.telefon);
+        resValues.put("type", restaurant.type);
+        Uri uri = getContentResolver().insert( CONTENT_URI, resValues);
         Log.d("Legg inn: ", "legger til restauranter");
         namein.setText("");
         adressin.setText("");
@@ -133,10 +146,8 @@ public class Restauranter extends AppCompatActivity {
 
         if (strName.equals("") || strAddress.equals("") || strPhone.equals("") || strType.equals("Velg type restaurant")){
             Toast.makeText(getBaseContext(),"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
-        } else if(!strAddress.matches("^[A-Z][a-z]+ [0-9]+[A-Za-z]?$")){
-            Toast.makeText(getBaseContext(),"Adressen må være gyldig", Toast.LENGTH_SHORT).show();
-        } else if(!strPhone.matches("^[0-9]{8}$")){
-            Toast.makeText(getBaseContext(),"Telefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
+        } else if(!strPhone.matches("^[0-9]$")){
+            Toast.makeText(getBaseContext(),"Telefonnummer kan kun inneholde siffere", Toast.LENGTH_SHORT).show();
         } else {
             addinDB(v);
         }

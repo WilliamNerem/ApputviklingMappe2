@@ -87,7 +87,7 @@ public class VennListAdapter extends ArrayAdapter<Venn> {
             Toast.makeText(context,"Venn er ikke endret.\nNavn må være gyldig med stor forbokstav", Toast.LENGTH_SHORT).show();
             return false;
         } else if(!strPhone.matches("^[0-9]{8}$")){
-            Toast.makeText(context,"Venn er ikke endret.\nTelefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Venn er ikke endret.\nTelefonnummer må være gyldig (8 siffer)", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

@@ -80,7 +80,7 @@ public class Venner extends AppCompatActivity {
         } else if(!strName.matches("^[A-Z][a-z-., ]+$")){
             Toast.makeText(getBaseContext(),"Navn må være gyldig med stor forbokstav", Toast.LENGTH_SHORT).show();
         } else if(!strPhone.matches("^[0-9]{8}$")){
-            Toast.makeText(getBaseContext(),"Telefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),"Telefonnummer må være gyldig (8 siffer)", Toast.LENGTH_SHORT).show();
         } else {
             addinDB(v);
         }

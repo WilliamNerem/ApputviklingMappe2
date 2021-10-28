@@ -1,9 +1,11 @@
 package com.example.apputviklingmappe2;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
     private final int mResource;
     private DBHandler db;
     private final List<Restaurant> listRestaurant;
+    public final static String PROVIDER="com.example.apputviklingmappe2.RestaurantProvider";
+    public static final Uri CONTENT_URI= Uri.parse("content://"+ PROVIDER + "/restaurants");
 
     public RestaurantListAdapter(Context context, int resource, List<Restaurant> objects) {
         super(context, resource, objects);
@@ -77,6 +81,7 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
             public void onClick(View view) {
                 db = new DBHandler(mContext);
                 db.deleteRestaurant(id);
+                getContext().getContentResolver().delete(CONTENT_URI, "id=" + id, null);
                 listRestaurant.clear();
                 listRestaurant.addAll(db.findAllRestauranter());
                 notifyDataSetChanged();
@@ -94,11 +99,8 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         if (strName.equals("") || strAddress.equals("") || strPhone.equals("")){
             Toast.makeText(context,"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(!strAddress.matches("^[A-Z][a-z]+ [0-9]+[A-Za-z]?$")){
-            Toast.makeText(context,"Adressen må være gyldig", Toast.LENGTH_SHORT).show();
-            return false;
         } else if(!strPhone.matches("^[0-9]{8}$")){
-            Toast.makeText(context,"Telefonnummer må være gyldig", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Telefonnummer må være gyldig (8 siffer)", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -134,6 +136,14 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
                     enRestaurant.setTelefon(editPhone.getText().toString());
                     enRestaurant.setType(editType.getSelectedItem().toString());
                     db.updateRestaurant(enRestaurant);
+                    ContentValues resValues = new ContentValues();
+                    resValues.clear();
+                    resValues.put("id", id);
+                    resValues.put("name", enRestaurant.navn);
+                    resValues.put("address", enRestaurant.adresse);
+                    resValues.put("phone", enRestaurant.telefon);
+                    resValues.put("type", enRestaurant.type);
+                    getContext().getContentResolver().update(CONTENT_URI, resValues ,"id=" + id, null);
                     listRestaurant.clear();
                     listRestaurant.addAll(db.findAllRestauranter());
                     notifyDataSetChanged();
