@@ -71,7 +71,6 @@ public class RestaurantProvider extends ContentProvider {
             resDB.addRestaurant(restaurant);
         }
         long rowID = db.insert(TABLE_NAME, "", values);
-        System.out.println(rowID);
         if (rowID > 0) {
             Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
             getContext().getContentResolver().notifyChange(_uri, null);

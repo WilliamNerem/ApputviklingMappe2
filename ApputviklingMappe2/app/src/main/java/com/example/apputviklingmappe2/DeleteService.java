@@ -20,7 +20,6 @@ public class DeleteService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         DBHandler db = new DBHandler(this);
         String currentTime = Preferanser.getCurrentTime();
-        System.out.println("Tiden er "+currentTime);
         if (db.findNumberofuniqueBestillinger() > 0) {
             List<Bestilling> bestillinger = db.findAllBestillinger();
             for (Bestilling bestilling : bestillinger) {

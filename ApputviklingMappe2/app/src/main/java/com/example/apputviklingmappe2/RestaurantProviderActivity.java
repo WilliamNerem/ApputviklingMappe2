@@ -35,7 +35,6 @@ public class RestaurantProviderActivity extends AppCompatActivity {
     }
 
     public void onClickShowDetails(View view) {
-        // Retrieve employee records
         TextView resultView= (TextView) findViewById(R.id.res);
         Cursor cursor = getContentResolver().query(Uri.parse("content://com.example.apputviklingmappe2.RestaurantProvider/restaurants"), null, null, null, null);
         if(cursor.moveToFirst()) {
