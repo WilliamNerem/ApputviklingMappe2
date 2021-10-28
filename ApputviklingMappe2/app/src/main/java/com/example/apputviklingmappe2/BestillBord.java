@@ -34,7 +34,7 @@ public class BestillBord extends AppCompatActivity {
     private ImageView ivPreferanser;
     private DBHandler db;
     private String strAntallVennerValgt;
-    private final ArrayList<Venn> chosenVenner= new ArrayList<>();
+    private ArrayList<Venn> chosenVenner= new ArrayList<>();
     private int antallVennerValgt = 0;
     static boolean[] checkedItems;
 
@@ -164,7 +164,7 @@ public class BestillBord extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view;
                 if (position == 0) {
-                    tv.setTextColor(Color.GRAY);
+                    //tv.setTextColor(Color.GRAY);
                 }
             }
 
@@ -261,4 +261,21 @@ public class BestillBord extends AppCompatActivity {
     public void openTimePicker(View view) {
         timePickerDialog.show();
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("tvAntallVennerValgt", friendsButton.getText().toString());
+        outState.putBooleanArray("checkedItems", checkedItems);
+        outState.putInt("antallVennerInt", antallVennerValgt);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        friendsButton.setText(savedInstanceState.getString("tvAntallVennerValgt"));
+        checkedItems = savedInstanceState.getBooleanArray("checkedItems");
+        antallVennerValgt = savedInstanceState.getInt("antallVennerInt");
+    }
+
 }

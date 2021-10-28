@@ -6,17 +6,19 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/bestillBordToolbar"
+        android:id="@+id/LandBestillBordToolbar"
         layout="@layout/top_app_bar_list" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constChooseRestaurant"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constChooseFirends"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bestillBordToolbar">
+        app:layout_constraintTop_toBottomOf="@+id/LandBestillBordToolbar">
 
         <ImageView
             android:id="@+id/iconChooseRestaurant"
@@ -32,8 +34,8 @@
             app:srcCompat="@drawable/ic_baseline_restaurant_24" />
 
         <Spinner
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:id="@+id/chooseRestaurant"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_width="210dp"
             android:layout_height="45dp"
             android:hint="@string/hintPhone"
@@ -42,18 +44,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/iconChooseRestaurant"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constChooseFirends"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constChooseRestaurant">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/constChooseRestaurant"
+        app:layout_constraintTop_toTopOf="@+id/constChooseRestaurant">
 
         <ImageView
             android:id="@+id/iconChooseFriend"
@@ -69,24 +71,25 @@
             app:srcCompat="@drawable/ic_baseline_person_24" />
 
         <Button
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:id="@+id/chooseFriend"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_width="210dp"
             android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/iconChooseFriend"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constChooseTime"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constChooseFirends">
 
@@ -105,31 +108,30 @@
 
         <Button
             android:id="@+id/choseTime"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_width="210dp"
             android:layout_height="45dp"
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:onClick="openTimePicker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/iconChooseTime"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
         android:id="@+id/addOrder"
-        android:onClick="addinDB"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:src="@drawable/ic_baseline_add_circle_24"
         android:background="@drawable/button_rounded_corners"
+        android:onClick="addinDB"
+        android:src="@drawable/ic_baseline_add_circle_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constChooseTime" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

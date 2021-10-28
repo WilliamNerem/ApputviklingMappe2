@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/restauranterListToolbar"
         layout="@layout/top_app_bar_add" />
 
     <ListView
