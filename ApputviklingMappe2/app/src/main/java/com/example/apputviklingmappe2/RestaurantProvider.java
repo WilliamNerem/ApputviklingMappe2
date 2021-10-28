@@ -103,7 +103,7 @@ public class RestaurantProvider extends ContentProvider {
     private SQLiteDatabase db;
     static final String DATABASE_NAME = "ResDB";
     static final String TABLE_NAME = "Restaurants";
-    static final int DATABASE_VERSION = 3;
+    static final int DATABASE_VERSION = 4;
     static final String CREATE_DB_TABLE = " CREATE TABLE " + TABLE_NAME
             + " (id INTEGER NOT NULL, "
             + " name TEXT NOT NULL, "

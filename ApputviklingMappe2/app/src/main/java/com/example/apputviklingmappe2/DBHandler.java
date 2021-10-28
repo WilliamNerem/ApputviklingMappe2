@@ -15,7 +15,7 @@ public class DBHandler extends SQLiteOpenHelper {
     static String KEY_ID = "_ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
-    static int DATABASE_VERSION = 11;
+    static int DATABASE_VERSION = 12;
     static String DATABASE_NAME = "Mappe_2_tabeller";
     static String TABLE_RESTAURANTER = "Restauranter";
     static String RES_KEY_ID = "_ID";
