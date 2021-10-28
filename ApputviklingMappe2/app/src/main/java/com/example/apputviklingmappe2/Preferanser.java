@@ -47,7 +47,7 @@ public class Preferanser extends AppCompatActivity {
         settingsSwitch.setChecked(prefs.getBoolean("SMS_Boolean", false));
         if (settingsSwitch.isChecked()) {
             timeButton.setEnabled(true);
-            timeButton.setText(getCurrentTime());
+            timeButton.setText(prefs.getString("SMS_Time", ""));
         }
         else {
             timeButton.setEnabled(false);
