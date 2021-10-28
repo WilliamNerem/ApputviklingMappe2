@@ -39,9 +39,6 @@ public class DBHandler extends SQLiteOpenHelper {
         String CREATE_TABLEVenn = "CREATE TABLE " + TABLE_VENNER + "(" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT," + KEY_PH_NO + " TEXT" + ")";
         String CREATE_TABLERestaurant = "CREATE TABLE " + TABLE_RESTAURANTER + "(" + RES_KEY_ID + " INTEGER PRIMARY KEY, " + RES_KEY_NAME + " TEXT," + RES_KEY_ADRESS + " TEXT," + RES_KEY_PH_NO + " TEXT," + RES_KEY_TYPE + " TEXT" + ")";
         String CREATE_TABLEBestillinger = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BES_KEY_ID + " INTEGER  , " + BES_RES + " TEXT," + BES_VENN + " INTEGER ," + BES_TIME + " TEXT, " + "PRIMARY KEY ("+BES_KEY_ID+", "+BES_VENN+"));";
-        Log.d("SQL", CREATE_TABLEVenn);
-        Log.d("SQL", CREATE_TABLERestaurant);
-        Log.d("SQL", CREATE_TABLEBestillinger);
         db.execSQL(CREATE_TABLEVenn);
         db.execSQL(CREATE_TABLERestaurant);
         db.execSQL(CREATE_TABLEBestillinger);

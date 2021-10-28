@@ -24,10 +24,7 @@ public class MainActivity extends AppCompatActivity {
         tvButtonVenner = findViewById(R.id.button_venner);
         ivPreferanser = findViewById(R.id.settings);
         buttons();
-        Intent resProv = new Intent(MainActivity.this, RestaurantProvider.class);
-        this.startService(resProv);
-        Intent delServ = new Intent(MainActivity.this, DeleteService.class);
-        this.startService(delServ);
+        initServices();
 
 
     }
@@ -59,5 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Preferanser.class));
             }
         });
+    }
+
+    private void initServices() {
+        Intent resProv = new Intent(MainActivity.this, RestaurantProvider.class);
+        this.startService(resProv);
+        Intent perioInt = new Intent(MainActivity.this, SetPeriodicalService.class);
+        this.startService(perioInt);
     }
 }

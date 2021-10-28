@@ -74,7 +74,7 @@ public class BestillBord extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(BestillBord.this, BestillBordList.class));
-                finishAffinity();
+                finish();
             }
         });
 
