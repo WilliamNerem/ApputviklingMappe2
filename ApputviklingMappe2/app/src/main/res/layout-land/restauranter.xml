@@ -6,17 +6,17 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/restauranterToolbar"
+        android:id="@+id/landRestauranterToolbar"
         layout="@layout/top_app_bar_list" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constRestaurantName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constRestaurantAddress"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restauranterToolbar">
+        app:layout_constraintTop_toBottomOf="@+id/landRestauranterToolbar">
 
         <ImageView
             android:id="@+id/iconRestaurantName"
@@ -48,12 +48,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constRestaurantAddress"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constRestaurantName">
+        app:layout_constraintStart_toEndOf="@id/constRestaurantName"
+        app:layout_constraintTop_toBottomOf="@+id/landRestauranterToolbar">
 
         <ImageView
             android:id="@+id/iconRestaurantAddress"
@@ -84,12 +84,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constRestaurantPhone"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constRestaurantType"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constRestaurantAddress">
+        app:layout_constraintTop_toBottomOf="@+id/constRestaurantName">
 
         <ImageView
             android:id="@+id/iconRestaurantPhone"
@@ -120,12 +120,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constRestaurantType"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constRestaurantPhone">
+        app:layout_constraintStart_toEndOf="@id/constRestaurantPhone"
+        app:layout_constraintTop_toBottomOf="@+id/constRestaurantAddress">
 
         <ImageView
             android:id="@+id/iconRestaurantType"
@@ -140,18 +140,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_restaurant_24" />
 
-            <Spinner
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                android:id="@+id/restaurantType"
-                android:layout_width="210dp"
-                android:layout_height="45dp"
-                android:hint="@string/hintPhone"
-                android:spinnerMode="dropdown"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/iconRestaurantType"
-                app:layout_constraintTop_toTopOf="parent"/>
+        <Spinner
+            android:id="@+id/restaurantType"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="210dp"
+            android:layout_height="45dp"
+            android:hint="@string/hintPhone"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iconRestaurantType"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
