@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Check Contentprovider</string>
+    <string-array name="RestaurantTypes">
+        <item>Velg type restaurant</item>
+        <item>Amerikansk</item>
+        <item>Asiatisk</item>
+        <item>Italiensk</item>
+        <item>Kinesisk</item>
+        <item>Thai</item>
+    </string-array>
+</resources>
