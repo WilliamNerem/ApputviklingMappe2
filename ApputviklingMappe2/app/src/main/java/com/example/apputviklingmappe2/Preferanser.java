@@ -57,7 +57,6 @@ public class Preferanser extends AppCompatActivity {
         buttons();
         initTimePicker();
         Log.v("Heiheisann", "LOL SE HER : " + prefs.getBoolean("SMS_Boolean", false));
-        System.out.println(prefs.getBoolean("SMS_Boolean", false));
     }
 
     private boolean checkPermissions() {
@@ -148,16 +147,13 @@ public class Preferanser extends AppCompatActivity {
     public void stopPeriodical(View v) {
         Intent i = new Intent(this, RestaurantService.class);
         Intent iPer = new Intent(this, SMSService.class);
-        // Intent iLaunch = new Intent(this, RestaurantBroadcastReceiver.class);
         PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
         PendingIntent pIPER = PendingIntent.getService(this, 0, iPer, 0);
-        // PendingIntent pILAUNCH = PendingIntent.getService(this,0,iLaunch,0);
         AlarmManager alarm =
                 (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (alarm!= null) {
             alarm.cancel(pintent);
             alarm.cancel(pIPER);
-          //  alarm.cancel(pILAUNCH);
         }
     }
 
