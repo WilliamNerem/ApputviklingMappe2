@@ -32,19 +32,26 @@ public class RestaurantService extends Service {
         List<Bestilling> bestillinger = db.findAllBestillinger();
         if (currentTime.equals(time)) {
             if (db.findNumberofuniqueBestillinger() > 0) {
-                System.out.println(time + " this is time");
-                System.out.println(currentTime + " this is currenttime");
-                // Nå skal den sjekke databasen for bestillinger
+                long curId;
+                long lastId = 0;
+                Integer channelId = 20;
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Intent i = new Intent(this, MainActivity.class);
                 PendingIntent pIntent = PendingIntent.getActivity(this, 0, i, 0);
-                Notification notification = new NotificationCompat.Builder(this, "22")
-                        .setContentTitle("Restaurant notifikasjon")
-                        .setContentText("Du har bestilt restaurant!!")
-                        .setSmallIcon(R.drawable.ic_baseline_restaurant_24)
-                        .setContentIntent(pIntent).build();
-                notification.flags |= Notification.FLAG_AUTO_CANCEL;
-                notificationManager.notify(0, notification);
+                for (Bestilling bestilling : bestillinger) {
+                    curId = bestilling.get_ID();
+                    if (curId != lastId) {
+                        lastId = curId;
+                        Notification notification = new NotificationCompat.Builder(this, channelId.toString())
+                                .setContentTitle(bestilling.getRestaurant().getNavn())
+                                .setContentText("Velkommen til oss klokken " + bestilling.getTime())
+                                .setSmallIcon(R.drawable.ic_baseline_restaurant_24)
+                                .setContentIntent(pIntent).build();
+                        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+                        notificationManager.notify(channelId, notification);
+                        channelId++;
+                    }
+                }
             }
         }
 

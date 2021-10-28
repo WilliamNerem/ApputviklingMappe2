@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ public class SMSService extends Service {
     private static int MY_PERMISSIONS_REQUEST_SEND_SMS;
     private static int MY_PHONE_STATE_PERMISSION;
     private DBHandler db;
+    SharedPreferences prefs;
 
     @Nullable
     @Override
@@ -35,6 +37,9 @@ public class SMSService extends Service {
         db = new DBHandler(this);
         String currentTime = Preferanser.getCurrentTime();
         System.out.println("Er i periodical SMSSERvice");
+        prefs = this.getSharedPreferences("com.example.apputviklingmappe2", Context.MODE_PRIVATE);
+        Log.v("Heiheisann", "LOL SE HER : " + prefs.getBoolean("SMS_Boolean", false));
+        System.out.println(prefs.getBoolean("SMS_Boolean", false));
         if (MY_PERMISSIONS_REQUEST_SEND_SMS == PackageManager.PERMISSION_GRANTED &&
                 MY_PHONE_STATE_PERMISSION ==
                         PackageManager.PERMISSION_GRANTED) {

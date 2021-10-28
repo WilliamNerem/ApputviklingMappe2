@@ -35,7 +35,7 @@ public class BestillBord extends AppCompatActivity {
     private String strAntallVennerValgt;
     private final ArrayList<Venn> chosenVenner= new ArrayList<>();
     private int antallVennerValgt = 0;
-    static boolean[] checkedItems = new boolean[0];
+    static boolean[] checkedItems;
 
 
     @Override
@@ -53,6 +53,7 @@ public class BestillBord extends AppCompatActivity {
         ivPreferanser = findViewById(R.id.settings);
         strAntallVennerValgt = getString(R.string.hintAntallVenner, antallVennerValgt);
         friendsButton.setText(strAntallVennerValgt);
+        checkedItems = new boolean[0];
         friendsButtonOnclick();
         db = new DBHandler(this);
         buttons();
@@ -89,7 +90,6 @@ public class BestillBord extends AppCompatActivity {
             Bestilling enBestilling = new Bestilling(bes_id_number, valgt, enVenn, timeButton.getText().toString());
             db.addBestilling(enBestilling);
         }
-        bes_id_number++;
         chosenVenner.clear();
         Log.d("Legg inn: ", "legger til bestillinger");
         Toast.makeText(getBaseContext(),"Bestilling lagt til", Toast.LENGTH_SHORT).show();
