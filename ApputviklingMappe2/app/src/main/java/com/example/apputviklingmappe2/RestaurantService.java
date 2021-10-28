@@ -36,8 +36,7 @@ public class RestaurantService extends Service {
                 long lastId = 0;
                 Integer channelId = 20;
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                Intent i = new Intent(this, MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent i = new Intent(this, BestillBordList.class);
                 PendingIntent pIntent = PendingIntent.getActivity(this, 0, i, 0);
                 for (Bestilling bestilling : bestillinger) {
                     curId = bestilling.get_ID();
