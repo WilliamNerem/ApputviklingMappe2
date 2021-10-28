@@ -146,7 +146,7 @@ public class Restauranter extends AppCompatActivity {
 
         if (strName.equals("") || strAddress.equals("") || strPhone.equals("") || strType.equals("Velg type restaurant")){
             Toast.makeText(getBaseContext(),"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
-        } else if(!strPhone.matches("^[0-9]$")){
+        } else if(!strPhone.matches("^[0-9]+$")){
             Toast.makeText(getBaseContext(),"Telefonnummer kan kun inneholde siffere", Toast.LENGTH_SHORT).show();
         } else {
             addinDB(v);

@@ -109,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
         if (strName.equals("") || strAddress.equals("") || strPhone.equals("")){
             Toast.makeText(context,"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(!strPhone.matches("^[0-9]{8}$")){
-            Toast.makeText(context,"Telefonnummer må være gyldig (8 siffer)", Toast.LENGTH_SHORT).show();
+        } else if(!strPhone.matches("^[0-9]+$")){
+            Toast.makeText(context,"Telefonnummer kan kun inneholde siffere", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
