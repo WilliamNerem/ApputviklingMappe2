@@ -8,22 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BestillBordListAdapter extends ArrayAdapter<Bestilling> {
-    private final static String TAG = "BestillBordListAdapter";
     private final Context mContext;
     private final int mResource;
-    private final List<Bestilling> listBestilling;
-    private List<Bestilling> allBestillingerList = new ArrayList<>();
-    private DBHandler db;
 
     public BestillBordListAdapter(Context context, int resource, List<Bestilling> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
-        listBestilling = objects;
     }
 
     @NonNull
@@ -33,8 +27,8 @@ public class BestillBordListAdapter extends ArrayAdapter<Bestilling> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
-        db = new DBHandler(convertView.getContext());
-        allBestillingerList = db.findAllBestillinger();
+        DBHandler db = new DBHandler(convertView.getContext());
+        List<Bestilling> allBestillingerList = db.findAllBestillinger();
         long id = getItem(position).get_ID();
         String restaurant = getItem(position).getRestaurant().getNavn();
         StringBuilder friend = new StringBuilder();

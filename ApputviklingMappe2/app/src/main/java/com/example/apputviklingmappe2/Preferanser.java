@@ -23,7 +23,6 @@ import androidx.core.app.ActivityCompat;
 import java.util.Calendar;
 
 public class Preferanser extends AppCompatActivity {
-    private static int MY_PERMISSIONS_REQUEST_SEND_SMS;
     private static int MY_PHONE_STATE_PERMISSION;
     private ImageButton toolbarBack;
     private SwitchCompat settingsSwitch;
@@ -62,7 +61,7 @@ public class Preferanser extends AppCompatActivity {
     }
 
     private boolean checkPermissions() {
-        MY_PERMISSIONS_REQUEST_SEND_SMS = ActivityCompat.checkSelfPermission(this,
+        int MY_PERMISSIONS_REQUEST_SEND_SMS = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS);
         MY_PHONE_STATE_PERMISSION = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.READ_PHONE_STATE);

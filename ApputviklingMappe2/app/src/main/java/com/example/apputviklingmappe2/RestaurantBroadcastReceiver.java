@@ -1,17 +1,11 @@
 package com.example.apputviklingmappe2;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
-
-import androidx.appcompat.widget.SwitchCompat;
 
 public class RestaurantBroadcastReceiver extends BroadcastReceiver {
     SharedPreferences prefs;

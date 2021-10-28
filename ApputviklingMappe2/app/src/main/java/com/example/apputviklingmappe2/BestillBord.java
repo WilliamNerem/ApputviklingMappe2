@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -34,7 +33,7 @@ public class BestillBord extends AppCompatActivity {
     private ImageView ivPreferanser;
     private DBHandler db;
     private String strAntallVennerValgt;
-    private ArrayList<Venn> chosenVenner= new ArrayList<>();
+    private final ArrayList<Venn> chosenVenner= new ArrayList<>();
     private int antallVennerValgt = 0;
     static boolean[] checkedItems;
 
@@ -136,11 +135,7 @@ public class BestillBord extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, items) {
             @Override
             public boolean isEnabled(int position) {
-                if (position == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return position != 0;
             }
 
             @Override

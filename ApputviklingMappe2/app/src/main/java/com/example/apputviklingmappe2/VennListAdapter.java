@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 public class VennListAdapter extends ArrayAdapter<Venn> {
-    private final static String TAG = "VennListAdapter";
     private final Context mContext;
     private final int mResource;
     private DBHandler db;

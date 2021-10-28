@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import java.util.List;
 
 public class Restauranter extends AppCompatActivity {
     private EditText namein;
@@ -79,11 +78,7 @@ public class Restauranter extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, items) {
             @Override
             public boolean isEnabled(int position) {
-                if (position == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return position != 0;
             }
 
             @Override
@@ -129,7 +124,7 @@ public class Restauranter extends AppCompatActivity {
         resValues.put("address", restaurant.adresse);
         resValues.put("phone", restaurant.telefon);
         resValues.put("type", restaurant.type);
-        Uri uri = getContentResolver().insert( CONTENT_URI, resValues);
+        getContentResolver().insert( CONTENT_URI, resValues);
         Log.d("Legg inn: ", "legger til restauranter");
         namein.setText("");
         adressin.setText("");
@@ -151,35 +146,5 @@ public class Restauranter extends AppCompatActivity {
         } else {
             addinDB(v);
         }
-    }
-
-    public void showallDB(View v) {
-        String text = "";
-        List<Restaurant> restauranter = db.findAllRestauranter();
-
-        for (Restaurant restaurant : restauranter) {
-            text = text + "Id: " + restaurant.get_ID() + ",Adresse: " +
-                    restaurant.getAdresse() + " ,Navn: " +
-                    restaurant.getNavn() + " ,Telefon: " +
-                    restaurant.getTelefon() + " ,Type: " +
-                    restaurant.getType();
-            Log.d("Navn: ", text);
-        }
-
-    }
-
-    public void deleteinDB(View v) {
-        Long restaurantid = (Long.parseLong("1"));
-        db.deleteRestaurant(restaurantid);
-    }
-
-    public void updateinDB(View v) {
-        Restaurant restaurant = new Restaurant();
-        restaurant.setNavn(namein.getText().toString());
-        restaurant.setAdresse(adressin.getText().toString());
-        restaurant.setTelefon(phonein.getText().toString());
-        restaurant.setType(typein.getSelectedItem().toString());
-        restaurant.set_ID(Long.parseLong("1"));
-        db.updateRestaurant(restaurant);
     }
 }

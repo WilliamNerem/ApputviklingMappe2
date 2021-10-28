@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import java.util.List;
 
 public class Venner extends AppCompatActivity {
     private EditText namein;
@@ -84,31 +83,5 @@ public class Venner extends AppCompatActivity {
         } else {
             addinDB(v);
         }
-    }
-
-    public void showallDB(View v) {
-        String text = "";
-        List<Venn> venner = db.findAllVenner();
-
-        for (Venn venn : venner) {
-            text = text + "Id: " + venn.get_ID() + ",Navn: " +
-                    venn.getNavn() + " ,Telefon: " +
-                    venn.getTelefon();
-            Log.d("Navn: ", text);
-        }
-
-    }
-
-    public void deleteinDB(View v) {
-        Long vennid = (Long.parseLong("1"));
-        db.deleteVenn(vennid);
-    }
-
-    public void updateinDB(View v) {
-        Venn venn = new Venn();
-        venn.setNavn(namein.getText().toString());
-        venn.setTelefon(phonein.getText().toString());
-        venn.set_ID(Long.parseLong("1"));
-        db.updateVenn(venn);
     }
 }

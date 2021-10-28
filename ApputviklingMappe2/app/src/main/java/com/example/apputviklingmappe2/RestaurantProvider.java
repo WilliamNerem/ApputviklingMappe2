@@ -11,9 +11,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.widget.EditText;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RestaurantProvider extends ContentProvider {
@@ -22,9 +19,6 @@ public class RestaurantProvider extends ContentProvider {
     static final Uri CONTENT_URI = Uri.parse(URL);
     static final String id = "id";
     static final String name = "name";
-    static final String address = "address";
-    static final String phone = "phone";
-    static final String type = "type";
     static final int uriCode = 1;
     static final UriMatcher uriMatcher;
     private static HashMap<String, String> values;
@@ -36,12 +30,10 @@ public class RestaurantProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        switch (uriMatcher.match(uri)) {
-            case uriCode:
-                return "vnd.android.cursor.dir/restaurants";
-            default:
-                throw new IllegalArgumentException("Unsupported URI: " + uri);
+        if (uriMatcher.match(uri) == uriCode) {
+            return "vnd.android.cursor.dir/restaurants";
         }
+        throw new IllegalArgumentException("Unsupported URI: " + uri);
     }
 
     @Override
@@ -58,12 +50,10 @@ public class RestaurantProvider extends ContentProvider {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(TABLE_NAME);
 
-        switch (uriMatcher.match(uri)) {
-            case uriCode:
-                qb.setProjectionMap(values);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+        if (uriMatcher.match(uri) == uriCode) {
+            qb.setProjectionMap(values);
+        } else {
+            throw new IllegalArgumentException("Unknown URI " + uri);
         }
         if (sortOrder == null || sortOrder.equals("")) {
             sortOrder = id;
@@ -92,38 +82,30 @@ public class RestaurantProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        int count = 0;
-        switch (uriMatcher.match(uri)) {
-            case uriCode:
-                count = db.update(TABLE_NAME, values, selection, selectionArgs);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+        int count;
+        if (uriMatcher.match(uri) == uriCode) {
+            count = db.update(TABLE_NAME, values, selection, selectionArgs);
+        } else {
+            throw new IllegalArgumentException("Unknown URI " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        int count = 0;
-        switch (uriMatcher.match(uri)) {
-            case uriCode:
-                count = db.delete(TABLE_NAME, selection, selectionArgs);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+        int count;
+        if (uriMatcher.match(uri) == uriCode) {
+            count = db.delete(TABLE_NAME, selection, selectionArgs);
+        } else {
+            throw new IllegalArgumentException("Unknown URI " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
-    public int getId(Uri uri){
-        DBHandler resDB = new DBHandler(getContext());
-        return resDB.findAllRestauranter().size();
-    }
     private SQLiteDatabase db;
     static final String DATABASE_NAME = "ResDB";
     static final String TABLE_NAME = "Restaurants";
-    static final int DATABASE_VERSION = 2;
+    static final int DATABASE_VERSION = 3;
     static final String CREATE_DB_TABLE = " CREATE TABLE " + TABLE_NAME
             + " (id INTEGER NOT NULL, "
             + " name TEXT NOT NULL, "

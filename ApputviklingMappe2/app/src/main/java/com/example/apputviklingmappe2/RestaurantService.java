@@ -8,10 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.widget.Toast;
-
 import androidx.core.app.NotificationCompat;
-
 import java.util.List;
 
 
@@ -34,7 +31,7 @@ public class RestaurantService extends Service {
             if (db.findNumberofuniqueBestillinger() > 0) {
                 long curId;
                 long lastId = 0;
-                Integer channelId = 20;
+                int channelId = 20;
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Intent i = new Intent(this, BestillBordList.class);
                 PendingIntent pIntent = PendingIntent.getActivity(this, 0, i, 0);
@@ -42,7 +39,7 @@ public class RestaurantService extends Service {
                     curId = bestilling.get_ID();
                     if (curId != lastId) {
                         lastId = curId;
-                        Notification notification = new NotificationCompat.Builder(this, channelId.toString())
+                        Notification notification = new NotificationCompat.Builder(this, Integer.toString(channelId))
                                 .setContentTitle(bestilling.getRestaurant().getNavn())
                                 .setContentText("Velkommen til oss klokken " + bestilling.getTime())
                                 .setSmallIcon(R.drawable.ic_baseline_restaurant_24)

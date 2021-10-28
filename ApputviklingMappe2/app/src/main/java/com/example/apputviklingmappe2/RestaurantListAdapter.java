@@ -20,7 +20,6 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
-    private final static String TAG = "RestaurantListAdapter";
     private final Context mContext;
     private final int mResource;
     private DBHandler db;
@@ -178,11 +177,7 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(mContext, android.R.layout.simple_spinner_item, items) {
             @Override
             public boolean isEnabled(int position) {
-                if (position == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return position != 0;
             }
 
             @Override

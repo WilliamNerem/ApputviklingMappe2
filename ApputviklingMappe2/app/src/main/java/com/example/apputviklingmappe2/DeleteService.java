@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 public class DeleteService extends Service {
-    private DBHandler db;
 
     @Nullable
     @Override
@@ -19,7 +18,7 @@ public class DeleteService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        db = new DBHandler(this);
+        DBHandler db = new DBHandler(this);
         String currentTime = Preferanser.getCurrentTime();
         System.out.println("Tiden er "+currentTime);
         if (db.findNumberofuniqueBestillinger() > 0) {

@@ -15,7 +15,7 @@ public class DBHandler extends SQLiteOpenHelper {
     static String KEY_ID = "_ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
-    static int DATABASE_VERSION = 10;
+    static int DATABASE_VERSION = 11;
     static String DATABASE_NAME = "Mappe_2_tabeller";
     static String TABLE_RESTAURANTER = "Restauranter";
     static String RES_KEY_ID = "_ID";
@@ -98,7 +98,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public List<Venn> findAllVenner() {
-        List<Venn> vennList = new ArrayList<Venn>();
+        List<Venn> vennList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_VENNER;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -117,7 +117,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public List<Restaurant> findAllRestauranter() {
-        List<Restaurant> restaurantList = new ArrayList<Restaurant>();
+        List<Restaurant> restaurantList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_RESTAURANTER;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -184,37 +184,26 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    /*public int deleteBestillinger(long bes_id, Long venn_id) {
-        String sql = "DELETE FROM Bestillinger WHERE BES_KEY_ID =? AND KEY_ID =?";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-        cursor.moveToFirst();;
-        cursor.close();
-        db.close();
-    }
-     */
-    public int updateVenn(Venn venn) {
+    public void updateVenn(Venn venn) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, venn.getNavn());
         values.put(KEY_PH_NO, venn.getTelefon());
-        int changed = db.update(TABLE_VENNER, values, KEY_ID + "= ?",
+        db.update(TABLE_VENNER, values, KEY_ID + "= ?",
                 new String[]{String.valueOf(venn.get_ID())});
         db.close();
-        return changed;
     }
 
-    public int updateRestaurant(Restaurant restaurant) {
+    public void updateRestaurant(Restaurant restaurant) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(RES_KEY_NAME, restaurant.getNavn());
         values.put(RES_KEY_ADRESS, restaurant.getAdresse());
         values.put(RES_KEY_PH_NO, restaurant.getTelefon());
         values.put(RES_KEY_TYPE, restaurant.getType());
-        int changed = db.update(TABLE_RESTAURANTER, values, RES_KEY_ID + "= ?",
+        db.update(TABLE_RESTAURANTER, values, RES_KEY_ID + "= ?",
                 new String[]{String.valueOf(restaurant.get_ID())});
         db.close();
-        return changed;
     }
 
     public Venn findVenn(long id) {
@@ -244,20 +233,5 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return restaurant;
-    }
-
-    public Bestilling findBestilling(long id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_BESTILLINGER, new String[]{
-                        BES_KEY_ID, BES_RES, BES_VENN, BES_TIME}, BES_KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
-        Bestilling bestilling = new
-                Bestilling(Long.parseLong(cursor.getString(0)),
-                new Restaurant(cursor.getString(1),null,null,null), findVenn(Long.parseLong(cursor.getString(2))),
-                cursor.getString(3));
-        cursor.close();
-        db.close();
-        return bestilling;
     }
 }

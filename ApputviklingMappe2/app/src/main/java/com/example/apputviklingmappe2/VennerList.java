@@ -13,9 +13,7 @@ import java.util.List;
 public class VennerList extends AppCompatActivity {
     private ImageButton toolbarBack;
     private ImageButton toolbarAdd;
-    private ImageButton buttonEditVenn;
     private ImageView ivPreferanser;
-    private DBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +24,11 @@ public class VennerList extends AppCompatActivity {
 
         toolbarAdd = (ImageButton) findViewById(R.id.add);
         toolbarBack = (ImageButton) findViewById(R.id.back);
-        buttonEditVenn = (ImageButton) findViewById(R.id.buttonEdit);
         ivPreferanser = findViewById(R.id.settings);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
 
-        db = new DBHandler(this);
+        DBHandler db = new DBHandler(this);
         List<Venn> vennList = db.findAllVenner();
 
         VennListAdapter adapter = new VennListAdapter(this, R.layout.list_item, vennList);
@@ -62,15 +59,6 @@ public class VennerList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(VennerList.this, Preferanser.class));
-            }
-        });
-    }
-
-    private void editButton(){
-        buttonEditVenn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(VennerList.this, MainActivity.class));
             }
         });
     }

@@ -1,8 +1,5 @@
 package com.example.apputviklingmappe2;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,18 +9,12 @@ import android.os.IBinder;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SMSService extends Service {
     private static int MY_PERMISSIONS_REQUEST_SEND_SMS;
     private static int MY_PHONE_STATE_PERMISSION;
-    private DBHandler db;
     SharedPreferences prefs;
 
     @Nullable
@@ -34,7 +25,7 @@ public class SMSService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        db = new DBHandler(this);
+        DBHandler db = new DBHandler(this);
         String currentTime = Preferanser.getCurrentTime();
         System.out.println("Er i periodical SMSSERvice");
         prefs = this.getSharedPreferences("com.example.apputviklingmappe2", Context.MODE_PRIVATE);
