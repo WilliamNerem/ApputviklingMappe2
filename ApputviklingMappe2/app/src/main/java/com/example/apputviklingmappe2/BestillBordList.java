@@ -1,5 +1,6 @@
 package com.example.apputviklingmappe2;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class RestauranterList extends AppCompatActivity {
+public class BestillBordList extends AppCompatActivity {
     private ImageButton toolbarAdd;
     private ImageButton toolbarBack;
     private ImageView ivPreferanser;
@@ -18,21 +22,36 @@ public class RestauranterList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.restauranter_list);
+        setContentView(R.layout.bestill_bord_list);
         TextView tvTitle = (TextView) findViewById(R.id.title);
-        tvTitle.setText(R.string.titleRestauranterList);
+        tvTitle.setText(R.string.titleBestillBordList);
 
         toolbarAdd = (ImageButton) findViewById(R.id.add);
         toolbarBack = (ImageButton) findViewById(R.id.back);
         ivPreferanser = findViewById(R.id.settings);
 
-        ListView listView = (ListView) findViewById(R.id.list_view_restauranter);
+        ListView listView = (ListView) findViewById(R.id.list_view_bestillinger);
 
         DBHandler db = new DBHandler(this);
-        List<Restaurant> restaurantList = db.findAllRestauranter();
+        List<Bestilling> bestillingList = db.findAllBestillinger();
+        List<Bestilling> uniqueBestillingList = new ArrayList<>();
+        long curId;
+        long lastId = 0;
+        StringBuilder venner = new StringBuilder();
+        if (bestillingList.size() > 0){
+            for (Bestilling bestilling : bestillingList) {
+                venner.append(bestilling.venn.getNavn()).append(", ");
+                curId = bestilling.get_ID();
+                if (curId != lastId) {
+                    lastId = curId;
+                    uniqueBestillingList.add(bestilling);
+                    venner.setLength(0);
+                }
+            }
+            BestillBordListAdapter adapter = new BestillBordListAdapter(this, R.layout.list_item_bestillinger, uniqueBestillingList);
+            listView.setAdapter(adapter);
+        }
 
-        RestaurantListAdapter adapter = new RestaurantListAdapter(this, R.layout.list_item_restauranter, restaurantList);
-        listView.setAdapter(adapter);
 
 
         toolbarButtons();
@@ -42,7 +61,7 @@ public class RestauranterList extends AppCompatActivity {
         toolbarBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RestauranterList.this, MainActivity.class));
+                startActivity(new Intent(BestillBordList.this, MainActivity.class));
                 finishAffinity();
             }
         });
@@ -50,7 +69,7 @@ public class RestauranterList extends AppCompatActivity {
         toolbarAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RestauranterList.this, Restauranter.class));
+                startActivity(new Intent(BestillBordList.this, BestillBord.class));
                 finish();
             }
         });
@@ -58,7 +77,7 @@ public class RestauranterList extends AppCompatActivity {
         ivPreferanser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RestauranterList.this, Preferanser.class));
+                startActivity(new Intent(BestillBordList.this, Preferanser.class));
             }
         });
     }

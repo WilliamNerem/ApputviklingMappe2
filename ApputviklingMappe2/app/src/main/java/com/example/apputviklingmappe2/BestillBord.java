@@ -30,6 +30,7 @@ public class BestillBord extends AppCompatActivity {
     private Button friendsButton;
     private Spinner restaurantSpinner;
     private ImageButton toolbarBack;
+    private ImageButton toolbarAdd;
     private ImageView ivPreferanser;
     private DBHandler db;
     private String strAntallVennerValgt;
@@ -50,6 +51,7 @@ public class BestillBord extends AppCompatActivity {
         friendsButton = findViewById(R.id.chooseFriend);
         restaurantSpinner = (Spinner) findViewById(R.id.chooseRestaurant);
         toolbarBack = (ImageButton) findViewById(R.id.back);
+        toolbarAdd = (ImageButton) findViewById(R.id.list);
         ivPreferanser = findViewById(R.id.settings);
         strAntallVennerValgt = getString(R.string.hintAntallVenner, antallVennerValgt);
         friendsButton.setText(strAntallVennerValgt);
@@ -65,6 +67,14 @@ public class BestillBord extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(BestillBord.this, MainActivity.class));
+                finishAffinity();
+            }
+        });
+
+        toolbarAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BestillBord.this, BestillBordList.class));
                 finishAffinity();
             }
         });
