@@ -26,7 +26,6 @@ public class DeleteService extends Service {
             List<Bestilling> bestillinger = db.findAllBestillinger();
             for (Bestilling bestilling : bestillinger) {
                 if (bestilling.getTime().equals(currentTime)) {
-                    System.out.println("Den fant et bra tidspunkt for sletting");
                     db.deleteBestilling(bestilling.get_ID(),bestilling.getVenn().get_ID());
                 }
             }

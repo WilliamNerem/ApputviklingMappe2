@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -43,14 +44,7 @@ public class Preferanser extends AppCompatActivity {
         timeButton = findViewById(R.id.time);
         savePreferanse = (ImageButton) findViewById(R.id.savePreferanse);
         timeButton.setText(getCurrentTime());
-        try {
-            settingsSwitch.setChecked(prefs.getBoolean("SMS_Boolean", false));
-        }
-        catch(Exception e) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("SMS_Boolean", false);
-            editor.apply();
-        }
+        settingsSwitch.setChecked(prefs.getBoolean("SMS_Boolean", false));
         if (settingsSwitch.isChecked()) {
             timeButton.setEnabled(true);
             timeButton.setText(getCurrentTime());
@@ -63,6 +57,8 @@ public class Preferanser extends AppCompatActivity {
         toolbarButtons();
         buttons();
         initTimePicker();
+        Log.v("Heiheisann", "LOL SE HER : " + prefs.getBoolean("SMS_Boolean", false));
+        System.out.println(prefs.getBoolean("SMS_Boolean", false));
     }
 
     private boolean checkPermissions() {
@@ -153,13 +149,16 @@ public class Preferanser extends AppCompatActivity {
     public void stopPeriodical(View v) {
         Intent i = new Intent(this, RestaurantService.class);
         Intent iPer = new Intent(this, SMSService.class);
+        // Intent iLaunch = new Intent(this, RestaurantBroadcastReceiver.class);
         PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
         PendingIntent pIPER = PendingIntent.getService(this, 0, iPer, 0);
+        // PendingIntent pILAUNCH = PendingIntent.getService(this,0,iLaunch,0);
         AlarmManager alarm =
                 (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (alarm!= null) {
             alarm.cancel(pintent);
             alarm.cancel(pIPER);
+          //  alarm.cancel(pILAUNCH);
         }
     }
 
