@@ -24,13 +24,12 @@ public class MainActivity extends AppCompatActivity {
         tvButtonVenner = findViewById(R.id.button_venner);
         ivPreferanser = findViewById(R.id.settings);
         buttons();
+        Intent resProv = new Intent(MainActivity.this, RestaurantProvider.class);
+        this.startService(resProv);
+        Intent delServ = new Intent(MainActivity.this, DeleteService.class);
+        this.startService(delServ);
 
 
-    }
-
-    public void startService(View v) {
-        Intent intent = new Intent(this, RestaurantBroadcastReceiver.class);
-        this.startService(intent);
     }
 
     private void buttons(){

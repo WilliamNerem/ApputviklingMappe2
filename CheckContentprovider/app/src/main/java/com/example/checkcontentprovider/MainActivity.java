@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String PROVIDER="com.example.apputviklingmappe2.RestaurantProvider";
-    public static final Uri CONTENT_URI= Uri.parse("content://"+ PROVIDER + "/restaurants");
+    public final static String PROVIDER = "com.example.apputviklingmappe2.RestaurantProvider";
+    public static final Uri CONTENT_URI = Uri.parse("content://" + PROVIDER + "/restaurants");
     static final String id = "id";
     static final String name = "name";
     static final String address = "address";
@@ -36,12 +36,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvName=(EditText)findViewById(R.id.name);
-        tvAddress=(EditText)findViewById(R.id.address);
-        tvPhone=(EditText)findViewById(R.id.phone);
-        tvType=(Spinner)findViewById(R.id.type);
-        Button leggtil=(Button)findViewById(R.id.leggtil);
-        visRestaurant=(TextView)findViewById(R.id.vis);
+        tvName = (EditText) findViewById(R.id.name);
+        tvAddress = (EditText) findViewById(R.id.address);
+        tvPhone = (EditText) findViewById(R.id.phone);
+        tvType = (Spinner) findViewById(R.id.type);
+        Button leggtil = (Button) findViewById(R.id.leggtil);
+        visRestaurant = (TextView) findViewById(R.id.vis);
         setSpinner();
         getId();
     }
@@ -90,46 +90,48 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getId(){
-        Cursor cur =getContentResolver().query(CONTENT_URI, null, null, null, null);
-        if (cur.moveToFirst()) {
-            do {
-                newId = Integer.parseInt(cur.getString(0));
+    public void getId() {
+        Cursor cur = getContentResolver().query(CONTENT_URI, null, null, null, null);
+        if (cur != null) {
+            if (cur.moveToFirst()) {
+                do {
+                    newId = Integer.parseInt(cur.getString(0));
+                }
+                while (cur.moveToNext());
+                cur.close();
             }
-            while (cur.moveToNext());
-            cur.close();
         }
     }
 
-    public boolean validation(EditText name, EditText address, EditText phone, Context context){
+    public boolean validation(EditText name, EditText address, EditText phone, Context context) {
         String strName = name.getText().toString();
         String strAddress = address.getText().toString();
         String strPhone = phone.getText().toString();
 
-        if (strName.equals("") || strAddress.equals("") || strPhone.equals("")){
-            Toast.makeText(context,"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
+        if (strName.equals("") || strAddress.equals("") || strPhone.equals("")) {
+            Toast.makeText(context, "Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
             return false;
-        } else if(!strPhone.matches("^[0-9]+$")){
-            Toast.makeText(context,"Telefonnummer kan kun inneholde siffere", Toast.LENGTH_SHORT).show();
+        } else if (!strPhone.matches("^[0-9]+$")) {
+            Toast.makeText(context, "Telefonnummer kan kun inneholde siffere", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
         }
     }
 
-    public void leggtil(View v){
-        if (validation(tvName, tvAddress, tvPhone, v.getContext())){
+    public void leggtil(View v) {
+        if (validation(tvName, tvAddress, tvPhone, v.getContext())) {
             ContentValues values = new ContentValues();
-            String innName=tvName.getText().toString();
-            String innAddress=tvAddress.getText().toString();
-            String innPhone=tvPhone.getText().toString();
-            String innType=tvType.getSelectedItem().toString();
-            values.put(id, newId+1);
+            String innName = tvName.getText().toString();
+            String innAddress = tvAddress.getText().toString();
+            String innPhone = tvPhone.getText().toString();
+            String innType = tvType.getSelectedItem().toString();
+            values.put(id, newId + 1);
             values.put(name, innName);
             values.put(address, innAddress);
             values.put(phone, innPhone);
             values.put(type, innType);
-            Uri uri = getContentResolver().insert( CONTENT_URI, values);
+            Uri uri = getContentResolver().insert(CONTENT_URI, values);
             tvName.setText("");
             tvAddress.setText("");
             tvPhone.setText("");
@@ -140,15 +142,17 @@ public class MainActivity extends AppCompatActivity {
     public void visalle(View v) {
         String tekst;
         tekst = "";
-        Cursor cur =getContentResolver().query(CONTENT_URI, null, null, null, null);
-        if (cur.moveToFirst()) {
-            do {
-                newId = Integer.parseInt(cur.getString(0));
-                tekst = tekst + "Restaurant " + (cur.getString(0)) + ":\nNavn: " + (cur.getString(1)) + "\nAdresse: " + (cur.getString(2)) + "\nTelefonnummer: " + (cur.getString(3)) + "\nType: " + (cur.getString(4)) + "\r\n\n";
+        Cursor cur = getContentResolver().query(CONTENT_URI, null, null, null, null);
+        if (cur != null) {
+            if (cur.moveToFirst()) {
+                do {
+                    newId = Integer.parseInt(cur.getString(0));
+                    tekst = tekst + "Restaurant " + (cur.getString(0)) + ":\nNavn: " + (cur.getString(1)) + "\nAdresse: " + (cur.getString(2)) + "\nTelefonnummer: " + (cur.getString(3)) + "\nType: " + (cur.getString(4)) + "\r\n\n";
+                }
+                while (cur.moveToNext());
+                cur.close();
+                visRestaurant.setText(tekst);
             }
-            while (cur.moveToNext());
-            cur.close();
-            visRestaurant.setText(tekst);
         }
     }
 }
