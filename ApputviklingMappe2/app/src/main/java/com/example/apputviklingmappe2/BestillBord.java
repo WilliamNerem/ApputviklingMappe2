@@ -78,21 +78,32 @@ public class BestillBord extends AppCompatActivity {
     }
 
     public void addinDB(View v) {
-        String enRestaurant = restaurantSpinner.getSelectedItem().toString();
-        Restaurant valgt = null;
-        for(Restaurant res : db.findAllRestauranter()) {
-            if(enRestaurant.equals(res.navn)) {
-                valgt = res;
+        if (!(restaurantSpinner.getSelectedItem().toString().equals("Legg til restaurant") || (antallVennerValgt == 0))){
+            String enRestaurant = restaurantSpinner.getSelectedItem().toString();
+            Restaurant valgt = null;
+            for(Restaurant res : db.findAllRestauranter()) {
+                if(enRestaurant.equals(res.navn)) {
+                    valgt = res;
+                }
             }
+            int bes_id_number = db.findNumberofuniqueBestillinger() + 1;
+            for(Venn enVenn : chosenVenner) {
+                Bestilling enBestilling = new Bestilling(bes_id_number, valgt, enVenn, timeButton.getText().toString());
+                db.addBestilling(enBestilling);
+            }
+            chosenVenner.clear();
+            Log.d("Legg inn: ", "legger til bestillinger");
+            Toast.makeText(getBaseContext(),"Bestilling lagt til", Toast.LENGTH_SHORT).show();
+
+            restaurantSpinner.setSelection(0);
+            antallVennerValgt = 0;
+            strAntallVennerValgt = getString(R.string.hintAntallVenner, antallVennerValgt);
+            friendsButton.setText(strAntallVennerValgt);
+            checkedItems = new boolean[0];
+            timeButton.setText(getCurrentTime());
+        } else {
+            Toast.makeText(getBaseContext(),"Alle felt må fylles ut", Toast.LENGTH_SHORT).show();
         }
-        int bes_id_number = db.findNumberofuniqueBestillinger() + 1;
-        for(Venn enVenn : chosenVenner) {
-            Bestilling enBestilling = new Bestilling(bes_id_number, valgt, enVenn, timeButton.getText().toString());
-            db.addBestilling(enBestilling);
-        }
-        chosenVenner.clear();
-        Log.d("Legg inn: ", "legger til bestillinger");
-        Toast.makeText(getBaseContext(),"Bestilling lagt til", Toast.LENGTH_SHORT).show();
     }
 
     private void friendsButtonOnclick() {
