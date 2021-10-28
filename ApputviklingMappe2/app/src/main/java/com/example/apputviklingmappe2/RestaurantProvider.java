@@ -18,7 +18,6 @@ public class RestaurantProvider extends ContentProvider {
     static final String URL = "content://" + PROVIDER_NAME + "/restaurants";
     static final Uri CONTENT_URI = Uri.parse(URL);
     static final String id = "id";
-    static final String name = "name";
     static final int uriCode = 1;
     static final UriMatcher uriMatcher;
     private static HashMap<String, String> values;

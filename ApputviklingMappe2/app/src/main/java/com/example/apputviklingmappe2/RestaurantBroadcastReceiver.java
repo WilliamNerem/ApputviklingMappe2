@@ -13,13 +13,14 @@ public class RestaurantBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         prefs = context.getSharedPreferences("com.example.apputviklingmappe2", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
         try {
             prefs.getBoolean("SMS_Boolean", false);
         } catch (Exception e) {
-            SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("SMS_Boolean", false);
             editor.apply();
         }
+        editor.putString("SMS_Time", "12:00");
         if (prefs.getBoolean("SMS_Boolean", false)) {
             Intent iPeri = new Intent(context, SetPeriodicalService.class);
             context.startService(iPeri);

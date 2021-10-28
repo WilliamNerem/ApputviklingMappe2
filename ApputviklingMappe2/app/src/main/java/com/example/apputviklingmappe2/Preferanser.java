@@ -92,13 +92,11 @@ public class Preferanser extends AppCompatActivity {
                         settingsSwitch.setChecked(false);
                     }
                     else {
-                        Toast.makeText(getBaseContext(), "SMS varsling skrudd på", Toast.LENGTH_SHORT).show();
                         timeButton.setEnabled(true);
                         timeButton.setText(getCurrentTime());
                     }
                 }
                 else {
-                    Toast.makeText(getBaseContext(), "SMS varsling skrudd av", Toast.LENGTH_SHORT).show();
                     timeButton.setEnabled(false);
                     timeButton.setText("--:--");
                 }
@@ -134,7 +132,6 @@ public class Preferanser extends AppCompatActivity {
     public void standardPrefs() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("SMS_Message", "Minner om bordbestilling i dag. Vel møtt!");
-        editor.putString("SMS_Time", "12:00");
         editor.apply();
     }
 
@@ -196,4 +193,19 @@ public class Preferanser extends AppCompatActivity {
     public void openTimePicker(View view) {
         timePickerDialog.show();
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("timeButton", timeButton.getText().toString());
+        outState.putBoolean("isEnabled", timeButton.isEnabled());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        timeButton.setText(savedInstanceState.getString("timeButton"));
+        timeButton.setEnabled(savedInstanceState.getBoolean("isEnabled"));
+    }
+
 }

@@ -56,10 +56,6 @@
             android:name=".Preferanser"
             android:label="Velg preferanser">
         </activity>
-        <activity
-            android:name=".RestaurantProviderActivity"
-            android:label="Restaurant provider">
-        </activity>
 
         <receiver android:name=".RestaurantBroadcastReceiver"
             android:exported="false"
